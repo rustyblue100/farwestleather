@@ -12,39 +12,20 @@ const SacsWrapper = styled.div`
 
 const Sac = styled.div`
   flex: 0 0 33%;
+  margin-bottom: 100px;
 `;
 
-interface IState {
-  sac: {
-    name: "string";
-    image: "string";
-  }[];
+interface IProps {
+  sacs: {
+    results: {
+      name: "string";
+      image: "string";
+    }[];
+  };
 }
-
-const Collection = () => {
-  const [sacs, setSacs] = useState<IState["sac"]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const getData = await fetch(
-          "https://rickandmortyapi.com/api/character"
-        );
-
-        const data = await getData.json();
-        setSacs(data.results);
-      } catch (error) {}
-    };
-
-    fetchData();
-
-    return () => {
-      fetchData();
-    };
-  }, []);
-
+const Collection: React.FC<IProps> = ({ sacs }) => {
   function renderSacs(): JSX.Element[] {
-    return sacs.map((sac, i) => {
+    return sacs.results.map((sac, i) => {
       return (
         <Sac key={i}>
           <Image

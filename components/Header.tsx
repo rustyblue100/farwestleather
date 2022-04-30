@@ -67,7 +67,7 @@ const Header: React.FC = () => {
     <Navbar>
       <Container>
         <Social>
-          <div className="tems-social">
+          <div className="items-social">
             <a
               target="_blank"
               href="https://www.facebook.com/cuirsfarwest/"
@@ -79,7 +79,7 @@ const Header: React.FC = () => {
               />
             </a>
           </div>
-          <div className="tems-social">
+          <div className="items-social">
             <a
               target="_blank"
               href="https://www.pinterest.ca/blanchard2603/pins/"
@@ -91,7 +91,7 @@ const Header: React.FC = () => {
               />
             </a>
           </div>
-          <div className="tems-social">
+          <div className="items-social">
             <a
               target="_blank"
               href="https://www.instagram.com/blanchard.fabien/"

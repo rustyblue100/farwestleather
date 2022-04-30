@@ -2,24 +2,23 @@ import React from "react";
 import styled from "styled-components";
 import Caroussel from "../components/Caroussel";
 import Image from "next/image";
-import Layout from "../components/Layout";
 import Collection from "../components/Collection";
 
 const Container = styled.div`
   margin: 20px auto;
-  padding: 24px 20px;
+
   max-width: 1140px;
 `;
 
 const Slogan = styled.div`
   text-align: center;
   align-items: center;
-  margin: 100px auto;
+  margin: 64px auto;
 
   h3 {
-    font-size: 12px;
+    font-size: 20px;
     font-weight: 300;
-    color: var (--theme-black);
+    color: var(--theme-primary);
   }
 
   h4 {
@@ -97,7 +96,16 @@ const Description = styled.div`
   }
 `;
 
-const Accueil: React.FC = () => {
+interface IProps {
+  data: {
+    results: {
+      name: "string";
+      image: "string";
+    }[];
+  };
+}
+
+const Accueil: React.FC<IProps> = ({ data }) => {
   return (
     <>
       <Container>
@@ -137,10 +145,25 @@ const Accueil: React.FC = () => {
           <div className="divider"></div>
         </Slogan2>
 
-        <Collection />
+        <Collection sacs={data} />
       </Container>
     </>
   );
 };
 
 export default Accueil;
+
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  const res = await fetch("https://rickandmortyapi.com/api/character");
+  const data = await res.json();
+
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      data,
+    },
+  };
+}

@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
     --theme-black: #010101;
     --theme-white: #fffffc;
     --theme-gray-500:#9d9d9d;
+    --theme-gray-700:#ffffff4d;
     --theme-primary: #b7990d;
     --theme-secondary: #b7990d;
 

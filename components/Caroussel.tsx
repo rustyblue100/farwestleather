@@ -8,9 +8,10 @@ import "swiper/css/effect-fade";
 
 import { Autoplay, EffectFade } from "swiper";
 
-const Caroussel: React.FC = () => {
+const Caroussel = () => {
   return (
     <Swiper
+      style={{ marginTop: -30 }}
       autoplay={{
         delay: 2500,
         disableOnInteraction: false,
@@ -27,8 +28,8 @@ const Caroussel: React.FC = () => {
       <SwiperSlide>
         <Image
           src="https://i0.wp.com/farwestleather.com/wp-content/uploads/2017/10/MG_8331_1865x1250_acf_cropped.jpg?fit=1865%2C1250&ssl=1"
-          width="1400"
-          height="800"
+          width="1600"
+          height="1200"
           objectFit="contain"
           alt="image1"
         />
@@ -36,8 +37,8 @@ const Caroussel: React.FC = () => {
       <SwiperSlide>
         <Image
           src="https://i2.wp.com/farwestleather.com/wp-content/uploads/2017/10/Cartable-13-3_1865x1250_acf_cropped.jpg?fit=1865%2C1250&ssl=1"
-          width="1400"
-          height="800"
+          width="1600"
+          height="1200"
           objectFit="contain"
           alt="image1"
         />
