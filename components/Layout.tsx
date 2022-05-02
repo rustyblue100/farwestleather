@@ -2,8 +2,9 @@ import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import styled from "styled-components";
+import { NextPage } from "next";
 
-const Layout: React.FC<any> = ({ children }) => {
+const Layout: NextPage<any> = ({ children }) => {
   return (
     <>
       <Header />

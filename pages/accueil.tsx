@@ -3,20 +3,21 @@ import styled from "styled-components";
 import Caroussel from "../components/Caroussel";
 import Image from "next/image";
 import Collection from "../components/Collection";
+import Head from "next/head";
+import type { NextPage } from "next";
 
 const Container = styled.div`
   margin: 20px auto;
-
   max-width: 1140px;
 `;
 
 const Slogan = styled.div`
   text-align: center;
   align-items: center;
-  margin: 64px auto;
+  margin: 60px auto;
 
   h3 {
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 300;
     color: var(--theme-primary);
   }
@@ -76,22 +77,19 @@ const Description = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  line-height: 2;
   margin: 100px 0 40px 0;
 
   .desc-img {
-    flex: 1;
   }
 
   .desc-wrapper {
-    flex: 1;
-    width: 595px;
+    width: 570px;
     height: 380px;
     background-color: var(--theme-primary);
   }
 
   .desc-text {
-    padding: 40px;
+    padding: 70px;
     color: var(--theme-white);
   }
 `;
@@ -108,10 +106,17 @@ interface IProps {
 const Accueil: React.FC<IProps> = ({ data }) => {
   return (
     <>
+      <Head>
+        <title>Farwestleather – Cuir teint, assemblé et cousu à la main.</title>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
+      </Head>
       <Container>
         <Caroussel />
         <Slogan>
-          <h3>FARWESTLEATHER</h3>
+          <h3>FARWEST&#8226;LEATHER</h3>
           <h4>Inspiration, beauté, solidité...</h4>
           <div className="divider"></div>
         </Slogan>
@@ -119,8 +124,9 @@ const Accueil: React.FC<IProps> = ({ data }) => {
         <Description>
           <Image
             src="https://i1.wp.com/farwestleather.com/wp-content/uploads/2017/10/sac-3-1-e1507753936255.jpg?fit=600%2C401&ssl=1"
-            width="595"
+            width="570"
             height="380"
+            objectFit="contain"
             alt="sac"
             className="desc-img"
           />
@@ -154,13 +160,9 @@ const Accueil: React.FC<IProps> = ({ data }) => {
 export default Accueil;
 
 export async function getStaticProps() {
-  // Call an external API endpoint to get posts.
-  // You can use any data fetching library
   const res = await fetch("https://rickandmortyapi.com/api/character");
   const data = await res.json();
 
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
   return {
     props: {
       data,

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
+import { NextPage } from "next";
 
 const SacsWrapper = styled.div`
   display: flex;
@@ -8,11 +9,12 @@ const SacsWrapper = styled.div`
   flex-wrap: wrap;
   width: 100%;
   align-items: center;
+  margin-bottom: 100px;
+  gap: 5px;
 `;
 
 const Sac = styled.div`
   flex: 0 0 33%;
-  margin-bottom: 100px;
 `;
 
 interface IProps {
@@ -23,7 +25,7 @@ interface IProps {
     }[];
   };
 }
-const Collection: React.FC<IProps> = ({ sacs }) => {
+const Collection: NextPage<IProps> = ({ sacs }) => {
   function renderSacs(): JSX.Element[] {
     return sacs.results.map((sac, i) => {
       return (

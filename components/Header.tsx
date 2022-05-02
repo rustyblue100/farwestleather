@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 import Logo from "./Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,12 +11,14 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 
 library.add(faFacebookF);
 
-const Navbar = styled.div`
-  background-color: var(--theme-black);
+const Navbar = styled.div<{ scrollMenu: boolean }>`
+  background-color: ${(props) =>
+    props.scrollMenu ? "var(--theme-white)" : "var(--theme-black)"};
   font-size: 14px;
   position: sticky;
   top: 0;
   z-index: 999;
+  transition: all 0.4s;
 `;
 
 const Container = styled.div`
@@ -24,18 +27,26 @@ const Container = styled.div`
   align-items: center;
   margin: 0 auto;
   padding: 28px 20px;
+  max-width: 2000px;
 `;
 
-const Social = styled.div`
+const Social = styled.div<{ scrollMenu: boolean }>`
   flex: 1;
   display: flex;
   gap: 30px;
-  color: var(--theme-white);
+
+  svg {
+    font-size: 15px;
+    color: ${(props) =>
+      props.scrollMenu ? "var(--theme-black)" : "var(--theme-white)"};
+    transition: all 0.4s;
+  }
 `;
 
-const LogoWrap = styled.div`
+const LogoWrap = styled.div<{ scrollMenu: boolean }>`
   flex: 1;
-  max-width: 184px;
+  max-width: ${(props) => (props.scrollMenu ? "84px" : "184px")};
+
   fill: #010101;
   background-color: var(--theme-white);
   height: auto;
@@ -48,35 +59,50 @@ const LogoWrap = styled.div`
     z-index: 999;
     background: var(--theme-white);
   }
+
+  transition: all 0.4s;
 `;
 
-const Menu = styled.div`
-  flex:1;
-  display:flex;
-  justify-content:flex-end;
-  gap:20px;
+const Menu = styled.div<{ scrollMenu: boolean }>`
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
 
-  a{
-      color: var(--theme-white);
-      text-transform: capitalize;
-      text-decoration:none;
-  `;
+  a {
+    color: ${(props) =>
+      props.scrollMenu ? "var(--theme-black)" : "var(--theme-white)"};
+    text-transform: capitalize;
+    text-decoration: none;
+    transition: all 0.4s;
+  }
+`;
 
 const Header: React.FC = () => {
+  const [colorchange, setColorchange] = useState(false);
+
+  useEffect(() => {
+    const changeNavbarColor = () => {
+      if (window.scrollY >= 80) {
+        setColorchange(true);
+      } else {
+        setColorchange(false);
+      }
+    };
+    window.addEventListener("scroll", changeNavbarColor);
+  }, []);
+
   return (
-    <Navbar>
+    <Navbar scrollMenu={colorchange}>
       <Container>
-        <Social>
+        <Social scrollMenu={colorchange}>
           <div className="items-social">
             <a
               target="_blank"
               href="https://www.facebook.com/cuirsfarwest/"
               rel="noopener noreferrer"
             >
-              <FontAwesomeIcon
-                icon={faFacebookF}
-                style={{ fontSize: 15, color: "white" }}
-              />
+              <FontAwesomeIcon icon={faFacebookF} />
             </a>
           </div>
           <div className="items-social">
@@ -85,10 +111,7 @@ const Header: React.FC = () => {
               href="https://www.pinterest.ca/blanchard2603/pins/"
               rel="noopener noreferrer"
             >
-              <FontAwesomeIcon
-                icon={faPinterest}
-                style={{ fontSize: 15, color: "white" }}
-              />
+              <FontAwesomeIcon icon={faPinterest} />
             </a>
           </div>
           <div className="items-social">
@@ -97,19 +120,16 @@ const Header: React.FC = () => {
               href="https://www.instagram.com/blanchard.fabien/"
               rel="noopener noreferrer"
             >
-              <FontAwesomeIcon
-                icon={faInstagram}
-                style={{ fontSize: 15, color: "white" }}
-              />
+              <FontAwesomeIcon icon={faInstagram} />
             </a>
           </div>
         </Social>
 
-        <LogoWrap>
+        <LogoWrap scrollMenu={colorchange}>
           <Logo />
         </LogoWrap>
 
-        <Menu>
+        <Menu scrollMenu={colorchange}>
           <div>
             <a href="#inspiration">inspiration</a>
           </div>

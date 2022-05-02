@@ -37,8 +37,8 @@ const FooterWrapper = styled.div`
   }
 
   ul {
+    margin-left: -28px;
     li {
-      margin-left: -25px;
       line-height: 2;
       color: var(--theme-white);
     }
