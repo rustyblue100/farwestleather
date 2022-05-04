@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { theme } from "../theme";
 import { NextPage } from "next";
 
-const StyledBurger = styled.button<{ scrollMenu: boolean }>`
+const StyledBurger = styled.button<{ scrollMenu: boolean; open: boolean }>`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -26,7 +26,7 @@ const StyledBurger = styled.button<{ scrollMenu: boolean }>`
     background: ${(props) =>
       props.scrollMenu ? theme.themeDark : theme.themeLight};
     border-radius: 0px;
-    transition: all ${theme.transitionDuration} linear;
+    transition: all 0.25s linear;
     position: relative;
     transform-origin: 1px;
 
@@ -47,7 +47,11 @@ const StyledBurger = styled.button<{ scrollMenu: boolean }>`
 
 const Burger: React.FC<any> = ({ open, setOpen, colorchange }) => {
   return (
-    <StyledBurger onClick={() => setOpen(!open)} scrollMenu={colorchange}>
+    <StyledBurger
+      onClick={() => setOpen(!open)}
+      scrollMenu={colorchange}
+      open={open}
+    >
       <div />
       <div />
       <div />

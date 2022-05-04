@@ -9,7 +9,7 @@ export const theme = {
   mobileS: "320px",
   mobileM: "375px",
   mobileL: "425px",
-  tablet: "767px",
+  tablet: "769px",
   laptop: "1024px",
   laptopL: "1440px",
   desktop: "2560px",

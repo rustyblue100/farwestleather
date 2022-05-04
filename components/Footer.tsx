@@ -51,9 +51,13 @@ const FooterWrapper = styled.div`
     font-size: 12px;
   }
 
+  padding: 0 20px;
+
+  @media (max-width: ${theme.tablet}) {
+  }
+
   @media (max-width: ${theme.mobileL}) {
     display: block;
-    padding: 0 20px;
   }
 `;
 

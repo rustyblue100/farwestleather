@@ -32,17 +32,18 @@ const Container = styled.div`
   margin: 0 auto;
   max-width: 2000px;
   height: 100%;
+  padding: 0 20px;
 `;
 
 const Social = styled.div<{ scrollMenu: boolean }>`
   flex: 1;
   display: flex;
-
   position: relative;
   align-items: center;
 
   a {
     padding: 25px 20px;
+
     :hover {
       background-color: ${theme.themePrimary};
       display: inline-block;
@@ -133,8 +134,6 @@ const Header: React.FC = () => {
   const [colorchange, setColorchange] = useState(false);
   const [open, setOpen] = useState(false);
 
-  console.log(open);
-
   useEffect(() => {
     const changeNavbarColor = () => {
       if (window.scrollY >= 80) {
@@ -149,6 +148,7 @@ const Header: React.FC = () => {
   return (
     <Navbar scrollMenu={colorchange}>
       <Container>
+        <MobileMenu open={open} />
         <Social scrollMenu={colorchange}>
           <div className="items-social">
             <a
@@ -197,7 +197,6 @@ const Header: React.FC = () => {
 
         <MobileMenuWrapper>
           <Burger open={open} setOpen={setOpen} colorchange={colorchange} />
-          <MobileMenu open={open} />
         </MobileMenuWrapper>
       </Container>
     </Navbar>
