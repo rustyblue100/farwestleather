@@ -5,6 +5,7 @@ import Image from "next/image";
 import Collection from "../components/Collection";
 import Head from "next/head";
 import type { NextPage } from "next";
+import { theme } from "../theme";
 
 const Container = styled.div`
   margin: 20px auto;
@@ -19,7 +20,7 @@ const Slogan = styled.div`
   h3 {
     font-size: 15px;
     font-weight: 300;
-    color: var(--theme-primary);
+    color: ${theme.themePrimary};
   }
 
   h4 {
@@ -34,10 +35,14 @@ const Slogan = styled.div`
   .divider {
     padding-top: 40px;
     display: block;
-    border-bottom: 2px solid #8cada7;
+    border-bottom: 2px solid var(--theme-third);
     width: 273px;
     margin: 20px auto;
     text-align: center;
+  }
+
+  @media (max-width: ${theme.mobileL}) {
+    max-width: 384px;
   }
 `;
 
@@ -49,7 +54,7 @@ const Slogan2 = styled.div`
   h3 {
     font-size: 12px;
     font-weight: 300;
-    color: var (--theme-black);
+    color: ${theme.themeDark};
   }
 
   h4 {
@@ -71,6 +76,10 @@ const Slogan2 = styled.div`
     margin: 20px auto;
     text-align: center;
   }
+
+  @media (max-width: ${theme.mobileL}) {
+    margin: 80px auto 100px auto;
+  }
 `;
 
 const Description = styled.div`
@@ -79,18 +88,40 @@ const Description = styled.div`
   align-items: center;
   margin: 100px 0 40px 0;
 
+  @media (max-width: ${theme.mobileL}) {
+    flex-direction: column;
+    margin: 80px 0 40px 0;
+  }
+
   .desc-img {
+    flex: 1;
+    position: relative;
+    width: 570px;
+    height: 380px;
+    paddingbottom: 20%;
+
+    @media (max-width: ${theme.mobileL}) {
+      display: none !important;
+    }
   }
 
   .desc-wrapper {
     width: 570px;
     height: 380px;
-    background-color: var(--theme-primary);
+    background-color: ${theme.themePrimary};
+
+    @media (max-width: ${theme.mobileL}) {
+      width: 100%;
+    }
   }
 
   .desc-text {
     padding: 70px;
-    color: var(--theme-white);
+    color: ${theme.themeLight};
+
+    @media (max-width: ${theme.mobileL}) {
+      padding: 40px;
+    }
   }
 `;
 
@@ -103,7 +134,7 @@ interface IProps {
   };
 }
 
-const Accueil: React.FC<IProps> = ({ data }) => {
+const Accueil: NextPage<IProps> = ({ data }) => {
   return (
     <>
       <Head>
@@ -122,14 +153,15 @@ const Accueil: React.FC<IProps> = ({ data }) => {
         </Slogan>
 
         <Description>
-          <Image
-            src="https://i1.wp.com/farwestleather.com/wp-content/uploads/2017/10/sac-3-1-e1507753936255.jpg?fit=600%2C401&ssl=1"
-            width="570"
-            height="380"
-            objectFit="contain"
-            alt="sac"
-            className="desc-img"
-          />
+          <div className="desc-img">
+            {" "}
+            <Image
+              src="https://i1.wp.com/farwestleather.com/wp-content/uploads/2017/10/sac-3-1-e1507753936255.jpg?fit=600%2C401&ssl=1"
+              layout="fill"
+              objectFit="cover"
+              alt="sac"
+            />
+          </div>
 
           <div className="desc-wrapper">
             <div className="desc-text">

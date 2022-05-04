@@ -15,6 +15,7 @@ const GlobalStyle = createGlobalStyle`
     --theme-gray-700:#ffffff4d;
     --theme-primary: #b7990d;
     --theme-secondary: #b7990d;
+    --theme-third: #8cada7;
 
   }
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { NextPage } from "next";
+import { theme } from "../theme";
 
 const SacsWrapper = styled.div`
   display: flex;
@@ -11,6 +12,10 @@ const SacsWrapper = styled.div`
   align-items: center;
   margin-bottom: 100px;
   gap: 5px;
+
+  @media (max-width: ${theme.mobileL}) {
+    display: block;
+  }
 `;
 
 const Sac = styled.div`

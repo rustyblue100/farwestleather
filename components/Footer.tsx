@@ -1,10 +1,12 @@
 import styled from "styled-components";
+import { theme } from "../theme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebookF,
   faPinterest,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
+
 import { library } from "@fortawesome/fontawesome-svg-core";
 
 library.add(faFacebookF);
@@ -17,7 +19,7 @@ const FooterContainer = styled.div`
 
 const FooterWrapper = styled.div`
   margin: 40px auto;
-  width: 1140px;
+  max-width: 1140px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -25,7 +27,7 @@ const FooterWrapper = styled.div`
   font-size: 14px;
 
   h3 {
-    color: var(--theme-primary);
+    color: ${theme.themePrimary};
     text-transform: uppercase;
     font-weight: 400;
     font-size: 14px;
@@ -40,13 +42,18 @@ const FooterWrapper = styled.div`
     margin-left: -28px;
     li {
       line-height: 2;
-      color: var(--theme-white);
+      color: ${theme.themeLight};
     }
   }
 
   .copyright {
     padding-top: 40px;
     font-size: 12px;
+  }
+
+  @media (max-width: ${theme.mobileL}) {
+    display: block;
+    padding: 0 20px;
   }
 `;
 
@@ -70,7 +77,7 @@ const SocialLink = styled.div`
     background-color: var(--theme-gray-700);
     padding: 5px 10px;
     margin-right: 2px;
-    color: var(--theme-white);
+    color: ${theme.themeLight};
   }
 `;
 

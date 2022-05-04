@@ -8,17 +8,21 @@ import {
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
+import { theme } from "../theme";
+import Burger from "./Burger";
+import MobileMenu from "./MobileMenu";
 
 library.add(faFacebookF);
 
 const Navbar = styled.div<{ scrollMenu: boolean }>`
   background-color: ${(props) =>
-    props.scrollMenu ? "var(--theme-white)" : "var(--theme-black)"};
+    props.scrollMenu ? theme.themeLight : theme.themeDark};
   font-size: 14px;
   position: sticky;
   top: 0;
   z-index: 999;
-  transition: all 0.4s;
+  transition: all ${theme.transitionDuration};
+  height: 70px;
 `;
 
 const Container = styled.div`
@@ -26,29 +30,43 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  padding: 28px 20px;
   max-width: 2000px;
+  height: 100%;
 `;
 
 const Social = styled.div<{ scrollMenu: boolean }>`
   flex: 1;
   display: flex;
-  gap: 30px;
+
+  position: relative;
+  align-items: center;
+
+  a {
+    padding: 25px 20px;
+    :hover {
+      background-color: ${theme.themePrimary};
+      display: inline-block;
+    }
+  }
+
+  div:nth-child(2) {
+    a:hover {
+      background-color: ${theme.themeSecondary};
+    }
+  }
 
   svg {
     font-size: 15px;
     color: ${(props) =>
-      props.scrollMenu ? "var(--theme-black)" : "var(--theme-white)"};
-    transition: all 0.4s;
+      props.scrollMenu ? theme.themeDark : theme.themeLight};
+    transition: all ${theme.transitionDuration};
   }
 `;
 
 const LogoWrap = styled.div<{ scrollMenu: boolean }>`
-  flex: 1;
-  max-width: ${(props) => (props.scrollMenu ? "84px" : "184px")};
-
+  width: ${(props) => (props.scrollMenu ? "84px" : "184px")};
   fill: #010101;
-  background-color: var(--theme-white);
+  background-color: ${theme.themeLight};
   height: auto;
   display: flex;
   position: relative;
@@ -57,29 +75,65 @@ const LogoWrap = styled.div<{ scrollMenu: boolean }>`
     position: absolute;
     top: -32px;
     z-index: 999;
-    background: var(--theme-white);
+    background: ${theme.themeLight};
   }
 
-  transition: all 0.4s;
+  @media (max-width: ${theme.tablet}) {
+    max-width: 84px;
+  }
+
+  transition: all ${theme.transitionDuration};
 `;
 
 const Menu = styled.div<{ scrollMenu: boolean }>`
   flex: 1;
   display: flex;
   justify-content: flex-end;
-  gap: 20px;
+
+  height: 100%;
+  align-items: center;
 
   a {
     color: ${(props) =>
-      props.scrollMenu ? "var(--theme-black)" : "var(--theme-white)"};
+      props.scrollMenu ? theme.themeDark : theme.themeLight};
     text-transform: capitalize;
     text-decoration: none;
-    transition: all 0.4s;
+
+    width: 100%;
+    height: auto;
+    padding: 25px;
+
+    :hover {
+      background-color: ${theme.themePrimary};
+      display: inline-block;
+    }
+  }
+
+  div:nth-child(2) {
+    a:hover {
+      background-color: ${theme.themeSecondary};
+      display: inline-block;
+    }
+  }
+
+  @media (max-width: ${theme.tablet}) {
+    display: none;
+  }
+`;
+
+const MobileMenuWrapper = styled.div`
+  flex: 1;
+
+  @media (min-width: ${theme.tablet}) {
+    display: none;
   }
 `;
 
 const Header: React.FC = () => {
   const [colorchange, setColorchange] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  console.log(open);
 
   useEffect(() => {
     const changeNavbarColor = () => {
@@ -140,6 +194,11 @@ const Header: React.FC = () => {
             <a href="#contact">contact</a>
           </div>
         </Menu>
+
+        <MobileMenuWrapper>
+          <Burger open={open} setOpen={setOpen} colorchange={colorchange} />
+          <MobileMenu open={open} />
+        </MobileMenuWrapper>
       </Container>
     </Navbar>
   );
