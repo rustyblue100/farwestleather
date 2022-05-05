@@ -7,11 +7,6 @@ import Head from "next/head";
 import type { NextPage } from "next";
 import { theme } from "../theme";
 
-const Container = styled.div`
-  margin: 20px auto;
-  max-width: 1140px;
-`;
-
 const Slogan = styled.div`
   text-align: center;
   align-items: center;
@@ -33,9 +28,9 @@ const Slogan = styled.div`
   }
 
   .divider {
-    padding-top: 40px;
+    padding-top: 20px;
     display: block;
-    border-bottom: 2px solid var(--theme-third);
+    border-bottom: 2px solid ${theme.themeSecondary};
     width: 273px;
     margin: 20px auto;
     text-align: center;
@@ -43,42 +38,6 @@ const Slogan = styled.div`
 
   @media (max-width: ${theme.mobileL}) {
     max-width: 384px;
-  }
-`;
-
-const Slogan2 = styled.div`
-  text-align: center;
-  align-items: center;
-  margin: 100px auto;
-
-  h3 {
-    font-size: 12px;
-    font-weight: 300;
-    color: ${theme.themeDark};
-  }
-
-  h4 {
-    font-size: 30px;
-    font-weight: 200;
-    text-align: center;
-    margin: 40px auto;
-    color: #000;
-    width: 95%;
-    line-height: 1.5;
-    max-width: 700px;
-  }
-
-  .divider {
-    padding-top: 40px;
-    display: block;
-    border-bottom: 2px solid #8cada7;
-    width: 273px;
-    margin: 20px auto;
-    text-align: center;
-  }
-
-  @media (max-width: ${theme.mobileL}) {
-    margin: 80px auto 100px auto;
   }
 `;
 
@@ -128,6 +87,7 @@ const Description = styled.div`
 interface IProps {
   data: {
     results: {
+      id: number;
       name: "string";
       image: "string";
     }[];
@@ -144,7 +104,7 @@ const Accueil: NextPage<IProps> = ({ data }) => {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <Container>
+      <>
         <Caroussel />
         <Slogan>
           <h3>FARWEST&#8226;LEATHER</h3>
@@ -178,13 +138,8 @@ const Accueil: NextPage<IProps> = ({ data }) => {
           </div>
         </Description>
 
-        <Slogan2>
-          <h4>Collection</h4>
-          <div className="divider"></div>
-        </Slogan2>
-
-        <Collection sacs={data} />
-      </Container>
+        <Collection sacs={data} limit={6} titre="Les nouvautés" />
+      </>
     </>
   );
 };

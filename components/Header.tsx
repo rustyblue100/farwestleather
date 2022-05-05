@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebookF,
@@ -33,6 +34,10 @@ const Container = styled.div`
   max-width: 2000px;
   height: 100%;
   padding: 0 20px;
+
+  @media (max-width: ${theme.mobile}) {
+    padding: 0 10px;
+  }
 `;
 
 const Social = styled.div<{ scrollMenu: boolean }>`
@@ -47,6 +52,10 @@ const Social = styled.div<{ scrollMenu: boolean }>`
     :hover {
       background-color: ${theme.themePrimary};
       display: inline-block;
+    }
+
+    @media (max-width: ${theme.tablet}) {
+      padding: 25px 8px;
     }
   }
 
@@ -71,6 +80,7 @@ const LogoWrap = styled.div<{ scrollMenu: boolean }>`
   height: auto;
   display: flex;
   position: relative;
+  cursor: pointer;
 
   svg {
     position: absolute;
@@ -179,16 +189,18 @@ const Header: React.FC = () => {
           </div>
         </Social>
 
-        <LogoWrap scrollMenu={colorchange}>
-          <Logo />
-        </LogoWrap>
+        <Link href="/accueil" passHref>
+          <LogoWrap scrollMenu={colorchange}>
+            <Logo />
+          </LogoWrap>
+        </Link>
 
         <Menu scrollMenu={colorchange}>
-          <div>
+          {/*           <div>
             <a href="#inspiration">inspiration</a>
-          </div>
+          </div> */}
           <div>
-            <a href="#collection">collection</a>
+            <Link href="/collection">collection</Link>
           </div>
           <div>
             <a href="#contact">contact</a>

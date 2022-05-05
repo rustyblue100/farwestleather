@@ -5,10 +5,17 @@ import styled from "styled-components";
 import { NextPage } from "next";
 
 const Layout: NextPage<any> = ({ children }) => {
+  const Container = styled.div`
+    margin: 20px auto;
+    max-width: 1140px;
+  `;
+
   return (
     <>
       <Header />
-      <main>{children}</main>
+      <Container>
+        <main>{children}</main>
+      </Container>
       <Footer />
     </>
   );

@@ -8,20 +8,14 @@ config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatic
 
 const GlobalStyle = createGlobalStyle`
 
-  :root {
-    --theme-black: #010101;
-    --theme-white: #fffffc;
-    --theme-gray-500:#9d9d9d;
-    --theme-gray-700:#ffffff4d;
-    --theme-primary: #b7990d;
-    --theme-secondary: #b7990d;
-    --theme-third: #8cada7;
-
-  }
-
-
   * {
   box-sizing: border-box;
+  }
+
+  a{
+    :hover{
+      text-decoration:underline
+    }
   }
 
   body {
@@ -30,6 +24,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-family:Georgia;
     line-height: 20px;
+    color:#242424;
   }
 
 

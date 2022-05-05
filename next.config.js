@@ -8,6 +8,7 @@ const nextConfig = {
       "i2.wp.com",
       "i1.wp.com",
       "rickandmortyapi.com",
+      "images.unsplash.com",
     ],
   },
 };

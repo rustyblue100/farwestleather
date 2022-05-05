@@ -12,9 +12,10 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 library.add(faFacebookF);
 
 const FooterContainer = styled.div`
+  margin-top: 200px;
   padding: 20px 0;
-  background-color: var(--theme-black);
-  color: var(--theme-white);
+  background-color: ${theme.themeDark};
+  color: ${theme.themeLight}; ;
 `;
 
 const FooterWrapper = styled.div`
@@ -51,9 +52,8 @@ const FooterWrapper = styled.div`
     font-size: 12px;
   }
 
-  padding: 0 20px;
-
   @media (max-width: ${theme.tablet}) {
+    padding: 0 20px;
   }
 
   @media (max-width: ${theme.mobileL}) {
@@ -78,7 +78,7 @@ const SocialLink = styled.div`
   justify-content: space-between;
 
   .items-social {
-    background-color: var(--theme-gray-700);
+    background-color: ${theme.themeGray700};
     padding: 5px 10px;
     margin-right: 2px;
     color: ${theme.themeLight};
