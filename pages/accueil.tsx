@@ -114,7 +114,6 @@ const Accueil: NextPage<IProps> = ({ data }) => {
 
         <Description>
           <div className="desc-img">
-            {" "}
             <Image
               src="https://i1.wp.com/farwestleather.com/wp-content/uploads/2017/10/sac-3-1-e1507753936255.jpg?fit=600%2C401&ssl=1"
               layout="fill"

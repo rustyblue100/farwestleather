@@ -20,9 +20,7 @@ const Grid = styled.div`
   gap: 100px;
 `;
 
-const GridItem = styled.div`
-  flex: 1;
-`;
+const GridItem = styled.div``;
 
 const Caroussel = styled.div`
   position: relative;
@@ -31,9 +29,8 @@ const Caroussel = styled.div`
     position: fixed;
     top: 0;
     left: 0;
-
     width: 100%;
-    height: 100vh;
+    height: 100%;
 
     background-color: ${theme.themeDark};
 
@@ -46,11 +43,19 @@ const Caroussel = styled.div`
 const Featured = styled.div`
   margin: 0;
   padding: 0;
+  cursor: zoom-in;
 `;
 
 const Thumbnails = styled.div`
-  justify-content: space-between;
+  justify-content: flex-start;
   display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  cursor: pointer;
+`;
+
+const Description = styled.div`
+  white-space: pre-line;
 `;
 
 const PageTitle = styled.h1`
@@ -100,9 +105,9 @@ const BackButton = styled.button`
   border: 0;
   background: none;
   padding: 10px;
-
+  color: ${theme.themePrimary};
   :hover {
-    color: ${theme.themeGray100};
+    color: ${theme.themeDark};
   }
 
   transition: ${theme.transitionDuration};
@@ -173,21 +178,17 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
   };
 
   const featuredImage = () => {
-    return images.map((image: any, i: number) => {
-      if (i === 0) {
-        return (
-          <Image
-            id="lightbox-img"
-            width="1800"
-            height="1200"
-            objectFit="cover"
-            onClick={() => showImage(imageToShow)}
-            src={imageToShow}
-            alt="img"
-          />
-        );
-      }
-    });
+    return (
+      <Image
+        id="lightbox-img"
+        width="1800"
+        height="1400"
+        objectFit="cover"
+        onClick={() => showImage(imageToShow)}
+        src={imageToShow}
+        alt="img"
+      />
+    );
   };
 
   const imageCards = images.map((image: any, i: number) => {
@@ -197,8 +198,9 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
         className="image-card"
         onClick={() => setImageToShow(image)}
         src={image}
-        width="80"
-        height="80"
+        width="96"
+        height="96"
+        objectFit="cover"
         alt="image"
       />
     );
@@ -213,7 +215,7 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
           </BackButton>
         </Link>
         <Grid>
-          <GridItem>
+          <GridItem style={{ flex: "0 0 58%" }}>
             <Caroussel>
               {lightboxDisplay ? (
                 <div onClick={hideLightBox} id="lightbox">
@@ -223,9 +225,9 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
                   <ButtonNav onClick={showPrev}>⭠</ButtonNav>
                   <Image
                     id="lightbox-img"
-                    src={imageToShow || ""}
-                    width="1400"
-                    height="1400"
+                    src={imageToShow}
+                    width="1200"
+                    height="1200"
                     objectFit="contain"
                     alt="img"
                   />
@@ -241,15 +243,14 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
           </GridItem>
           <GridItem>
             <PageTitle>{name}</PageTitle>
-            <p>
+            <Description>
               Cuir de type végétal teint à la main. Intérieur brut teint.
               Sacoche mode homme idéal pour sorties de ville. Poche intérieure à
               fermeture éclair. Dimension de 6.5x8x5 pouces. Prix à partir de
               250$ Sur Commande Seulement. Crédit Photo Patrick Trahan
-            </p>
+            </Description>
           </GridItem>
         </Grid>
-
         <Collection
           sacs={data}
           limit={3}

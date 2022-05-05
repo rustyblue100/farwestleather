@@ -5,6 +5,7 @@ import { NextPage } from "next";
 import { theme } from "../theme";
 import Link from "next/link";
 import { faBreadSlice } from "@fortawesome/free-solid-svg-icons";
+import { memo } from "react";
 
 const Slogan2 = styled.div`
   text-align: center;
@@ -169,4 +170,4 @@ const Collection: NextPage<IProps> = ({ sacs, limit, titre, ramdom }) => {
   );
 };
 
-export default Collection;
+export default memo(Collection);

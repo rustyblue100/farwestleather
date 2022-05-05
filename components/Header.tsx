@@ -117,6 +117,7 @@ const Menu = styled.div<{ scrollMenu: boolean }>`
     :hover {
       background-color: ${theme.themePrimary};
       display: inline-block;
+      text-decoration: none;
     }
   }
 
