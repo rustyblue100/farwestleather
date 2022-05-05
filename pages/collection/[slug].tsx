@@ -6,7 +6,7 @@ import Collection from "../../components/Collection";
 import Link from "next/link";
 import { theme } from "../../theme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft, faClose } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
   margin: 100px auto;
@@ -25,6 +25,7 @@ const GridItem = styled.div`
 `;
 
 const Caroussel = styled.div`
+  position: relative;
   #lightbox {
     z-index: 1;
     position: fixed;
@@ -38,8 +39,18 @@ const Caroussel = styled.div`
 
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
   }
+`;
+
+const Featured = styled.div`
+  margin: 0;
+  padding: 0;
+`;
+
+const Thumbnails = styled.div`
+  justify-content: space-between;
+  display: flex;
 `;
 
 const PageTitle = styled.h1`
@@ -48,14 +59,50 @@ const PageTitle = styled.h1`
   border-bottom: 2px solid ${theme.themeSecondary};
 `;
 
+const ButtonNav = styled.button`
+  cursor: pointer;
+  border: 0;
+  background: none;
+  color: ${theme.themeLight};
+  font-size: 20px;
+  flex: 1;
+  :hover {
+    background-color: ${theme.themePrimary};
+  }
+
+  transition: ${theme.transitionDuration};
+`;
+
+const CloseButton = styled.button`
+  border: 0;
+  background: none;
+  position: absolute;
+  top: 100px;
+  right: 40px;
+  font-size: 32px;
+  z-index: 999;
+  cursor: pointer;
+  padding: 20px;
+  color: ${theme.themeLight};
+  :hover {
+    background-color: ${theme.themePrimary};
+  }
+
+  transition: ${theme.transitionDuration};
+`;
+
 const BackButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: -10px;
   cursor: pointer;
   border: 0;
   background: none;
   padding: 10px;
 
   :hover {
-    background-color: ${theme.themeGray100};
+    color: ${theme.themeGray100};
   }
 
   transition: ${theme.transitionDuration};
@@ -132,8 +179,8 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
           <Image
             id="lightbox-img"
             width="1800"
-            height="1800"
-            objectFit="contain"
+            height="1200"
+            objectFit="cover"
             onClick={() => showImage(imageToShow)}
             src={imageToShow}
             alt="img"
@@ -162,7 +209,7 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
       <Container>
         <Link href={"/collection"} passHref>
           <BackButton>
-            <FontAwesomeIcon icon={faAngleLeft} /> Retour
+            <FontAwesomeIcon icon={faAngleLeft} /> retour
           </BackButton>
         </Link>
         <Grid>
@@ -170,24 +217,26 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
             <Caroussel>
               {lightboxDisplay ? (
                 <div onClick={hideLightBox} id="lightbox">
-                  //previous button
-                  <button onClick={showPrev}>⭠</button>
+                  <CloseButton onClick={hideLightBox}>
+                    <FontAwesomeIcon icon={faClose} />{" "}
+                  </CloseButton>
+                  <ButtonNav onClick={showPrev}>⭠</ButtonNav>
                   <Image
                     id="lightbox-img"
                     src={imageToShow || ""}
-                    width="1800"
-                    height="1800"
+                    width="1400"
+                    height="1400"
                     objectFit="contain"
                     alt="img"
                   />
-                  //next button
-                  <button onClick={showNext}>⭢</button>
+
+                  <ButtonNav onClick={showNext}>⭢</ButtonNav>
                 </div>
               ) : (
                 ""
               )}
-              {featuredImage()}
-              {imageCards}
+              <Featured>{featuredImage()}</Featured>
+              <Thumbnails>{imageCards}</Thumbnails>
             </Caroussel>
           </GridItem>
           <GridItem>
