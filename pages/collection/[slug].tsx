@@ -90,7 +90,7 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
   const { name, image } = sacs;
 
   const [lightboxDisplay, setLightBoxDisplay] = useState(false);
-  const [imageToShow, setImageToShow] = useState("");
+  const [imageToShow, setImageToShow] = useState(images[0]);
   const hideLightBox = () => {
     setLightBoxDisplay(false);
   };
@@ -125,32 +125,36 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
     }
   };
 
+  const featuredImage = () => {
+    return images.map((image: any, i: number) => {
+      if (i === 0) {
+        return (
+          <Image
+            id="lightbox-img"
+            width="1800"
+            height="1800"
+            objectFit="contain"
+            onClick={() => showImage(imageToShow)}
+            src={imageToShow}
+            alt="img"
+          />
+        );
+      }
+    });
+  };
+
   const imageCards = images.map((image: any, i: number) => {
-    if (i === 0) {
-      return (
-        <Image
-          id="lightbox-img"
-          width="1800"
-          height="1800"
-          objectFit="contain"
-          onClick={() => showImage(imageToShow)}
-          src={imageToShow}
-          alt="img"
-        />
-      );
-    } else {
-      return (
-        <Image
-          key={i}
-          className="image-card"
-          onClick={() => setImageToShow(image)}
-          src={image}
-          width="80"
-          height="80"
-          alt="image"
-        />
-      );
-    }
+    return (
+      <Image
+        key={i}
+        className="image-card"
+        onClick={() => setImageToShow(image)}
+        src={image}
+        width="80"
+        height="80"
+        alt="image"
+      />
+    );
   });
 
   return (
@@ -170,7 +174,7 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
                   <button onClick={showPrev}>⭠</button>
                   <Image
                     id="lightbox-img"
-                    src={imageToShow}
+                    src={imageToShow || ""}
                     width="1800"
                     height="1800"
                     objectFit="contain"
@@ -182,6 +186,7 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
               ) : (
                 ""
               )}
+              {featuredImage()}
               {imageCards}
             </Caroussel>
           </GridItem>
