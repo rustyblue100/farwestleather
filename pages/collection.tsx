@@ -1,6 +1,7 @@
 import React from "react";
 import Collection from "../components/Collection";
 import { NextPage } from "next";
+import styled from "styled-components";
 
 interface IProps {
   data: {
@@ -12,8 +13,21 @@ interface IProps {
   };
 }
 
+const List = styled.div`
+  padding: 0 20px;
+`;
+
 const collection: NextPage<IProps> = ({ data }) => {
-  return <Collection sacs={data} />;
+  return (
+    <List>
+      <Collection
+        sacs={data}
+        limit={-1}
+        titre="Toute la collection"
+        ramdom={false}
+      />
+    </List>
+  );
 };
 
 export default collection;

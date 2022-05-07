@@ -12,6 +12,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { theme } from "../theme";
 import Burger from "./Burger";
 import MobileMenu from "./MobileMenu";
+import MenuLinks from "../utils/menuLinks.json";
 
 library.add(faFacebookF);
 
@@ -36,7 +37,6 @@ const Container = styled.div`
   padding: 0 20px;
 
   @media (max-width: ${theme.mobile}) {
-    padding: 0 10px;
   }
 `;
 
@@ -55,7 +55,7 @@ const Social = styled.div<{ scrollMenu: boolean }>`
     }
 
     @media (max-width: ${theme.tablet}) {
-      padding: 25px 8px;
+      padding: 25px 20px 25px 0;
     }
   }
 
@@ -159,7 +159,7 @@ const Header: React.FC = () => {
   return (
     <Navbar scrollMenu={colorchange}>
       <Container>
-        <MobileMenu open={open} />
+        <MobileMenu open={open} setOpen={setOpen} />
         <Social scrollMenu={colorchange}>
           <div className="items-social">
             <a
@@ -197,15 +197,13 @@ const Header: React.FC = () => {
         </Link>
 
         <Menu scrollMenu={colorchange}>
-          {/*           <div>
-            <a href="#inspiration">inspiration</a>
-          </div> */}
-          <div>
-            <Link href="/collection">collection</Link>
-          </div>
-          <div>
-            <a href="#contact">contact</a>
-          </div>
+          {MenuLinks.map((lien, i) => {
+            return (
+              <div key={i}>
+                <Link href={lien.slug}>{lien.titre}</Link>
+              </div>
+            );
+          })}
         </Menu>
 
         <MobileMenuWrapper>

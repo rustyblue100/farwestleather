@@ -25,6 +25,7 @@ const Slogan = styled.div`
     margin: 40px auto;
     color: #000;
     line-height: 1.5;
+    color: ${theme.themeDark};
   }
 
   .divider {
@@ -53,11 +54,10 @@ const Description = styled.div`
   }
 
   .desc-img {
-    flex: 1;
     position: relative;
     width: 570px;
     height: 380px;
-    paddingbottom: 20%;
+    padding-bottom: 20%;
 
     @media (max-width: ${theme.mobileL}) {
       display: none !important;
@@ -78,10 +78,14 @@ const Description = styled.div`
     padding: 70px;
     color: ${theme.themeLight};
 
-    @media (max-width: ${theme.mobileL}) {
+    @media (max-width: ${theme.laptop}) {
       padding: 40px;
     }
   }
+`;
+
+const Nouveaute = styled.div`
+  padding: 0 20px;
 `;
 
 interface IProps {
@@ -136,8 +140,14 @@ const Accueil: NextPage<IProps> = ({ data }) => {
             </div>
           </div>
         </Description>
-
-        <Collection sacs={data} limit={6} titre="Les nouvautés" />
+        <Nouveaute>
+          <Collection
+            sacs={data}
+            limit={6}
+            titre="Les nouvautés"
+            ramdom={false}
+          />
+        </Nouveaute>
       </>
     </>
   );

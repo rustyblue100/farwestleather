@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import Image from "next/image";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NextPage } from "next";
-import { theme } from "../theme";
+import Image from "next/image";
 import Link from "next/link";
-import { faBreadSlice } from "@fortawesome/free-solid-svg-icons";
 import { memo } from "react";
+import styled from "styled-components";
+import { theme } from "../theme";
 
 const Slogan2 = styled.div`
   text-align: center;
@@ -27,6 +27,7 @@ const Slogan2 = styled.div`
     width: 95%;
     line-height: 1.5;
     max-width: 700px;
+    color: ${theme.themeDark};
   }
 
   .divider {
@@ -53,7 +54,7 @@ const SacsWrapper = styled.div`
   gap: 5px;
 
   @media (max-width: ${theme.mobileL}) {
-    display: block;
+    justify-content: flex-start;
   }
 `;
 
@@ -67,9 +68,31 @@ const Sac = styled.div`
     :hover {
       content: "";
       display: block;
-
       opacity: 1;
     }
+  }
+
+  @media (max-width: ${theme.laptop}) {
+    flex: 0 0 49%;
+  }
+
+  @media (max-width: ${theme.mobileL}) {
+    flex: 0 0 100%;
+  }
+`;
+
+const ImageWrapper = styled.div`
+  width: 100%;
+
+  > span {
+    position: unset !important;
+  }
+
+  .image {
+    object-fit: contain;
+    width: 100% !important;
+    position: relative !important;
+    height: unset !important;
   }
 `;
 const Title = styled.div<{ index: number }>`
@@ -113,28 +136,25 @@ interface IProps {
   sacs: {
     results: {
       id: number;
-      name: "string";
-      image: "string";
+      name: string;
+      image: string;
     }[];
-
-    limit: number;
-    titre: string;
-    ramdom: boolean;
   };
+
+  limit: number;
+  titre: string;
+  ramdom: boolean;
 }
 const Collection: NextPage<IProps> = ({ sacs, limit, titre, ramdom }) => {
   function renderSacs(): JSX.Element[] {
     const shuffeled = () => {
       if (ramdom) {
-        return (
-          sacs &&
-          sacs.results
-            .sort(() => {
-              const randomTrueOrFalse = Math.random() > 0.5;
-              return randomTrueOrFalse ? 1 : -1;
-            })
-            .slice(0, limit)
-        );
+        return sacs.results
+          .sort(() => {
+            const randomTrueOrFalse = Math.random() > 0.5;
+            return randomTrueOrFalse ? 1 : -1;
+          })
+          .slice(0, limit);
       } else if (limit === 6 && titre !== "Vous pourriez aussi aimer") {
         return sacs && sacs.results.slice(0, limit);
       } else {
@@ -149,7 +169,15 @@ const Collection: NextPage<IProps> = ({ sacs, limit, titre, ramdom }) => {
             <Title index={i}>
               <h2>{sac?.name}</h2>
             </Title>
-            <Image src={sac?.image} width="400" height="400" alt={sac?.name} />
+            <ImageWrapper>
+              <Image
+                src={sac?.image}
+                layout="fill"
+                objectFit="cover"
+                alt={sac?.name}
+                className="image"
+              />
+            </ImageWrapper>
           </Sac>
         </Link>
       );
@@ -164,7 +192,13 @@ const Collection: NextPage<IProps> = ({ sacs, limit, titre, ramdom }) => {
       </Slogan2>
       <SacsWrapper>{renderSacs()}</SacsWrapper>
       <Plus>
-        {limit && <Link href={"/collection"}>Voir toute la collection..</Link>}
+        {limit > 0 && (
+          <Link href={"/collection"}>
+            <a style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+              Voir toute la collection <FontAwesomeIcon icon={faAngleRight} />
+            </a>
+          </Link>
+        )}
       </Plus>
     </>
   );

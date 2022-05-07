@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { theme } from "../theme";
+import MenuLinks from "../utils/menuLinks.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebookF,
@@ -8,6 +9,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
+import Link from "next/link";
 
 library.add(faFacebookF);
 
@@ -33,6 +35,11 @@ const FooterWrapper = styled.div`
     font-weight: 400;
     font-size: 14px;
     margin-bottom: 40px;
+
+    @media (max-width: ${theme.tablet}) {
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
   }
 
   p {
@@ -50,10 +57,24 @@ const FooterWrapper = styled.div`
   .copyright {
     padding-top: 40px;
     font-size: 12px;
+
+    @media (max-width: ${theme.tablet}) {
+      display: none;
+    }
   }
 
+  .copyright-mobile {
+    padding-top: 40px;
+    font-size: 12px;
+    display: none;
+    @media (max-width: ${theme.tablet}) {
+      display: block;
+    }
+  }
+  padding: 0 20px;
+
   @media (max-width: ${theme.tablet}) {
-    padding: 0 20px;
+    display: block;
   }
 
   @media (max-width: ${theme.mobileL}) {
@@ -68,6 +89,19 @@ const Profile = styled.div`
 const Liens = styled.div`
   flex: 1;
   margin-left: 100px;
+
+  @media (max-width: ${theme.tablet}) {
+    margin-left: unset;
+  }
+
+  a {
+    color: ${theme.themeLight};
+    text-decoration: none;
+
+    :hover {
+      text-decoration: underline;
+    }
+  }
 `;
 
 const Social = styled.div``;
@@ -109,9 +143,13 @@ const Footer = () => {
         <Liens>
           <h3>Liens</h3>
           <ul>
-            <li>Inspiration</li>
-            <li>Collection</li>
-            <li>Contact</li>
+            {MenuLinks.map((lien, i) => {
+              return (
+                <li key={i}>
+                  <Link href={lien.slug}>{lien.titre}</Link>
+                </li>
+              );
+            })}
           </ul>
         </Liens>
 
@@ -155,6 +193,10 @@ const Footer = () => {
               </a>
             </div>
           </SocialLink>
+
+          <p className="copyright-mobile">
+            Tous droits réservés {yyyy} © Farwestleather
+          </p>
         </Social>
       </FooterWrapper>
     </FooterContainer>

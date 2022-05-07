@@ -3,6 +3,8 @@ import type { NextPage } from "next";
 import { theme } from "../theme";
 import Image from "next/image";
 import { bool } from "prop-types";
+import MenuLinks from "../utils/menuLinks.json";
+import Link from "next/link";
 
 const StyledMenu = styled.div<{ open: boolean }>`
   background-color: ${theme.themeDark};
@@ -33,20 +35,18 @@ const ImageLogo = styled.div`
   }
 `;
 
-const Menu: NextPage<any> = ({ open }) => {
+const Menu: NextPage<any> = ({ open, setOpen }) => {
   return (
     <>
-      {" "}
       <StyledMenu open={open}>
-        <div>
-          <a href="#inspiration">inspiration</a>
-        </div>
-        <div>
-          <a href="#collection">collection</a>
-        </div>
-        <div>
-          <a href="#contact">contact</a>
-        </div>
+        {MenuLinks.map((lien, i) => {
+          return (
+            <div key={i} onClick={() => setOpen(!open)}>
+              <Link href={lien.slug}>{lien.titre}</Link>
+            </div>
+          );
+        })}
+
         <ImageLogo>
           <Image src={"/favicon.ico"} width="18" height="18" alt="logo" />
         </ImageLogo>

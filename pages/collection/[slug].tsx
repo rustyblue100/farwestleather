@@ -9,15 +9,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faClose } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
-  margin: 100px auto;
+  margin: 80px 20px;
   max-width: 1140px;
+
+  @media (max-width: ${theme.tablet}) {
+    margin: 20px 20px;
+    flex-direction: column;
+  }
 `;
 
 const Grid = styled.div`
-  margin-top: 40px;
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
   gap: 100px;
+
+  @media (max-width: ${theme.tablet}) {
+    gap: 10px;
+    flex-direction: column;
+  }
 `;
 
 const GridItem = styled.div``;
@@ -25,7 +35,7 @@ const GridItem = styled.div``;
 const Caroussel = styled.div`
   position: relative;
   #lightbox {
-    z-index: 1;
+    z-index: 999;
     position: fixed;
     top: 0;
     left: 0;
@@ -54,6 +64,22 @@ const Thumbnails = styled.div`
   cursor: pointer;
 `;
 
+const ImageWrapper = styled.div`
+  width: 80%;
+  max-height: 80vh;
+
+  > span {
+    position: unset !important;
+  }
+
+  .image {
+    object-fit: contain;
+    width: 100% !important;
+    position: relative !important;
+    height: unset !important;
+  }
+`;
+
 const Description = styled.div`
   white-space: pre-line;
 `;
@@ -70,7 +96,7 @@ const ButtonNav = styled.button`
   background: none;
   color: ${theme.themeLight};
   font-size: 20px;
-  flex: 1;
+
   :hover {
     background-color: ${theme.themePrimary};
   }
@@ -82,12 +108,12 @@ const CloseButton = styled.button`
   border: 0;
   background: none;
   position: absolute;
-  top: 100px;
-  right: 40px;
+  top: 10px;
+  right: 30px;
   font-size: 32px;
   z-index: 999;
   cursor: pointer;
-  padding: 20px;
+  padding: 14px;
   color: ${theme.themeLight};
   :hover {
     background-color: ${theme.themePrimary};
@@ -99,7 +125,7 @@ const CloseButton = styled.button`
 const BackButton = styled.button`
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 0 4px;
   margin-left: -10px;
   cursor: pointer;
   border: 0;
@@ -139,15 +165,16 @@ const image6 =
 const images = [image1, image2, image3, image4, image5, image6];
 
 const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
-  const { name, image } = sacs;
+  const { name, image }: { name: string; image: string } = sacs;
 
   const [lightboxDisplay, setLightBoxDisplay] = useState(false);
+  const [endNav, setEndNav] = useState(false);
   const [imageToShow, setImageToShow] = useState(images[0]);
   const hideLightBox = () => {
     setLightBoxDisplay(false);
   };
 
-  const showImage = (image) => {
+  const showImage = (image: string) => {
     //set imageToShow to be the one that's been clicked on
 
     setImageToShow(image);
@@ -155,22 +182,22 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
     setLightBoxDisplay(true);
   };
 
-  const showNext = (e) => {
+  const showNext = (e: any): void => {
     e.stopPropagation();
     let currentIndex = images.indexOf(imageToShow);
     if (currentIndex >= images.length - 1) {
-      setLightBoxDisplay(false);
+      setLightBoxDisplay(true);
     } else {
       let nextImage = images[currentIndex + 1];
       setImageToShow(nextImage);
     }
   };
 
-  const showPrev = (e) => {
+  const showPrev = (e: any): void => {
     e.stopPropagation();
     let currentIndex = images.indexOf(imageToShow);
     if (currentIndex <= 0) {
-      setLightBoxDisplay(false);
+      setLightBoxDisplay(true);
     } else {
       let nextImage = images[currentIndex - 1];
       setImageToShow(nextImage);
@@ -180,7 +207,6 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
   const featuredImage = () => {
     return (
       <Image
-        id="lightbox-img"
         width="1800"
         height="1400"
         objectFit="cover"
@@ -223,14 +249,17 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
                     <FontAwesomeIcon icon={faClose} />{" "}
                   </CloseButton>
                   <ButtonNav onClick={showPrev}>⭠</ButtonNav>
-                  <Image
-                    id="lightbox-img"
-                    src={imageToShow}
-                    width="1200"
-                    height="1200"
-                    objectFit="contain"
-                    alt="img"
-                  />
+
+                  <ImageWrapper>
+                    <Image
+                      id="lightbox-img"
+                      src={imageToShow}
+                      layout="fill"
+                      objectFit="contain"
+                      alt="img"
+                      className="image"
+                    />
+                  </ImageWrapper>
 
                   <ButtonNav onClick={showNext}>⭢</ButtonNav>
                 </div>
@@ -282,7 +311,7 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async (context: object) => {
+export const getStaticProps = async (context: any) => {
   const slug = context.params.slug;
   const res = await fetch("https://rickandmortyapi.com/api/character/" + slug);
   const resAll = await fetch("https://rickandmortyapi.com/api/character/");
