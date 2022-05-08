@@ -9,17 +9,24 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 
 import { Autoplay, EffectFade } from "swiper";
+import { urlFor } from "../lib/sanity";
 
 const SliderWrapper = styled.div`
-  margin-top: -30px;
-
+  margin-top: 30px;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: ${theme.themeDark};
   @media (max-width: ${theme.tablet}) {
     margin-top: 0px;
     padding: 0 20px;
   }
+
+  img {
+    background-color: ${theme.themeDark};
+  }
 `;
 
-const Caroussel = () => {
+const Caroussel = ({ carousselData }) => {
   return (
     <SliderWrapper>
       <Swiper
@@ -36,24 +43,20 @@ const Caroussel = () => {
         onSwiper={(swiper) => console.log(swiper)}
         modules={[Autoplay, EffectFade]}
       >
-        <SwiperSlide>
-          <Image
-            src="https://i0.wp.com/farwestleather.com/wp-content/uploads/2017/10/MG_8331_1865x1250_acf_cropped.jpg?fit=1865%2C1250&ssl=1"
-            width="1600"
-            height="1200"
-            objectFit="contain"
-            alt="image1"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src="https://i2.wp.com/farwestleather.com/wp-content/uploads/2017/10/Cartable-13-3_1865x1250_acf_cropped.jpg?fit=1865%2C1250&ssl=1"
-            width="1600"
-            height="1200"
-            objectFit="contain"
-            alt="image1"
-          />
-        </SwiperSlide>
+        {carousselData[0].images?.map((slide, i) => {
+          console.log(slide);
+          return (
+            <SwiperSlide key={i}>
+              <Image
+                src={urlFor(slide).url()}
+                width="1600"
+                height="1200"
+                objectFit="contain"
+                alt="image1"
+              />
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </SliderWrapper>
   );

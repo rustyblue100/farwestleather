@@ -197,7 +197,7 @@ const Header: React.FC = () => {
           </div>
         </Social>
 
-        <Link href="/accueil" passHref>
+        <Link href="/" passHref>
           <LogoWrap scrollMenu={colorchange}>
             <Logo />
           </LogoWrap>

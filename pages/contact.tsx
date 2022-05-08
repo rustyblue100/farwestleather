@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { theme } from "../theme";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
+import { sanityClient, urlFor, PortableText } from "../lib/sanity";
 
 const Grid = styled.div`
   margin-top: 100px;
@@ -90,7 +91,9 @@ const SubmitButton = styled.button`
   cursor: pointer;
 `;
 
-const contact = () => {
+const contact = ({ desc }) => {
+  console.log(desc);
+
   interface IFormInputs {
     nom: string;
     email: string;
@@ -124,13 +127,7 @@ const contact = () => {
           <div className="divider"></div>
         </Title>
         <Description>
-          Les prix sont à titre informatifs. Chaque création est faite sur
-          mesure en fonction de votre besoin, choix de cuir, etc. Si vous avez
-          un design ou une couleur particulière en tête, n’hésitez pas à vous
-          faire plaisir et m’en faire part. Écrivez-moi et je prendrais soin de
-          vous lire et de vous répondre. 2 à 3 semaines seront nécéssaires entre
-          la commande et la réception du produit. Envois internationaux
-          possibles.
+          <PortableText value={desc[0]?.description} />
         </Description>
 
         <ContactForm>
@@ -174,3 +171,13 @@ const contact = () => {
 };
 
 export default contact;
+
+export async function getStaticProps() {
+  const desc = await sanityClient.fetch(`*[_type =="contact"]`);
+
+  return {
+    props: {
+      desc,
+    },
+  };
+}

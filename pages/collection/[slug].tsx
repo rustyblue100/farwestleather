@@ -163,7 +163,7 @@ interface IProps {
     images: string;
     description: string;
     prix: number;
-    credit;
+    credit: string;
   }[];
 
   data: {}[];
