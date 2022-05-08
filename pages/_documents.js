@@ -36,6 +36,7 @@ export default class MyDocument extends Document {
             src="https://kit.fontawesome.com/3eb7036e33.js"
             crossOrigin="anonymous"
           />
+
           <link
             href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lato&display=swap"
             rel="stylesheet"

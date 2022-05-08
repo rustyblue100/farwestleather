@@ -8,6 +8,7 @@ export const theme = {
   themeGray500: "#9d9d9d",
   themeGray700: "#606060",
   themeGray900: "#242424",
+  themeBody: "#404040",
   primaryHover: "#343078",
   mobile: "576px",
   mobileS: "320px",

@@ -7,6 +7,12 @@ import Link from "next/link";
 import { theme } from "../../theme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faClose } from "@fortawesome/free-solid-svg-icons";
+import {
+  sanityClient,
+  urlFor,
+  usePreviewSubscription,
+  PortableText,
+} from "../../lib/sanity";
 
 const Container = styled.div`
   margin: 80px 20px;
@@ -51,9 +57,9 @@ const Caroussel = styled.div`
 `;
 
 const Featured = styled.div`
-  margin: 0;
-  padding: 0;
+  margin-bottom: 20px;
   cursor: zoom-in;
+  background-color: ${theme.themeDark};
 `;
 
 const Thumbnails = styled.div`
@@ -65,8 +71,7 @@ const Thumbnails = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  width: 80%;
-  max-height: 80vh;
+  width: 68%;
 
   > span {
     position: unset !important;
@@ -85,9 +90,22 @@ const Description = styled.div`
 `;
 
 const PageTitle = styled.h1`
-  line-height: 2;
+  font-weight: 400;
+  line-height: 1.2;
   display: inline-block;
+`;
+
+const Divider = styled.div`
   border-bottom: 2px solid ${theme.themeSecondary};
+`;
+
+const Credit = styled.div`
+  font-size: 11px;
+  position: absolute;
+  bottom: 162px;
+  right: -28px;
+  transform: rotate(-90deg);
+  color: ${theme.themeGray100};
 `;
 
 const ButtonNav = styled.button`
@@ -141,35 +159,22 @@ const BackButton = styled.button`
 
 interface IProps {
   sacs: {
-    name: string;
-    image: string;
+    nom: string;
+    images: string;
+    description: string;
+    prix: number;
+    credit;
   }[];
 
   data: {}[];
 }
 
-const image1 =
-  "https://images.unsplash.com/photo-1497752531616-c3afd9760a11?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80";
-const image2 =
-  "https://images.unsplash.com/photo-1470093851219-69951fcbb533?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80";
-const image3 =
-  "https://images.unsplash.com/photo-1447684808650-354ae64db5b8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2094&q=80";
-const image4 =
-  "https://images.unsplash.com/photo-1425082661705-1834bfd09dca?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2110&q=80";
-const image5 =
-  "https://images.unsplash.com/photo-1494256997604-768d1f608cac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2301&q=80";
-const image6 =
-  "https://images.unsplash.com/photo-1500694216671-a4e54fc4b513?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2092&q=80";
-
-//IMAGE ARRAY
-const images = [image1, image2, image3, image4, image5, image6];
-
 const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
-  const { name, image }: { name: string; image: string } = sacs;
+  const { nom, images, description, prix, credit }: IProps = sacs;
 
   const [lightboxDisplay, setLightBoxDisplay] = useState(false);
   const [endNav, setEndNav] = useState(false);
-  const [imageToShow, setImageToShow] = useState(images[0]);
+  const [imageToShow, setImageToShow] = useState(urlFor(images[0]).url());
   const hideLightBox = () => {
     setLightBoxDisplay(false);
   };
@@ -209,9 +214,9 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
       <Image
         width="1800"
         height="1400"
-        objectFit="cover"
+        objectFit="contain"
         onClick={() => showImage(imageToShow)}
-        src={imageToShow}
+        src={urlFor(imageToShow).url()}
         alt="img"
       />
     );
@@ -223,7 +228,7 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
         key={i}
         className="image-card"
         onClick={() => setImageToShow(image)}
-        src={image}
+        src={urlFor(image).url()}
         width="96"
         height="96"
         objectFit="cover"
@@ -253,7 +258,7 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
                   <ImageWrapper>
                     <Image
                       id="lightbox-img"
-                      src={imageToShow}
+                      src={urlFor(imageToShow).url()}
                       layout="fill"
                       objectFit="contain"
                       alt="img"
@@ -267,17 +272,17 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
                 ""
               )}
               <Featured>{featuredImage()}</Featured>
+              <Credit>@{credit}</Credit>
               <Thumbnails>{imageCards}</Thumbnails>
             </Caroussel>
           </GridItem>
           <GridItem>
-            <PageTitle>{name}</PageTitle>
+            <PageTitle>{nom}</PageTitle>
+            <Divider />
             <Description>
-              Cuir de type végétal teint à la main. Intérieur brut teint.
-              Sacoche mode homme idéal pour sorties de ville. Poche intérieure à
-              fermeture éclair. Dimension de 6.5x8x5 pouces. Prix à partir de
-              250$ Sur Commande Seulement. Crédit Photo Patrick Trahan
+              <PortableText value={description} />
             </Description>
+            <p> Prix à partir de : {prix}$</p>
           </GridItem>
         </Grid>
         <Collection
@@ -293,35 +298,42 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
 
 export default CollectionPage;
 
-export const getStaticPaths = async () => {
-  const res = await fetch("https://rickandmortyapi.com/api/character");
-  const data = await res.json();
+const sacsQuery = `*[_type =="sacs" && slug.current == $slug][0]{
+  _id,
+  nom,
+  slug,
+  images,
+  description,
+  prix,
+  credit
+}`;
 
-  const paths = data.results.map((sac: any) => {
-    return {
-      params: {
-        slug: sac.id.toString(),
-      },
-    };
-  });
+export const getStaticPaths = async () => {
+  const paths =
+    await sanityClient.fetch(`*[_type =="sacs" && defined(slug.current)]{
+      "params": {
+        "slug": slug.current
+  }}`);
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
-export const getStaticProps = async (context: any) => {
-  const slug = context.params.slug;
-  const res = await fetch("https://rickandmortyapi.com/api/character/" + slug);
-  const resAll = await fetch("https://rickandmortyapi.com/api/character/");
-  const data = await res.json();
-  const dataAll = await resAll.json();
+export const getStaticProps = async ({ params }: { params: string }) => {
+  const { slug } = params;
+
+  const sacs = await sanityClient.fetch(sacsQuery, { slug });
+
+  const data = await sanityClient.fetch(`*[_type =="sacs"]`);
+
+  console.log(sacs);
 
   return {
     props: {
-      data: dataAll,
-      sacs: data,
+      data,
+      sacs,
     },
   };
 };

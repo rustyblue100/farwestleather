@@ -2,6 +2,7 @@ import React from "react";
 import Collection from "../components/Collection";
 import { NextPage } from "next";
 import styled from "styled-components";
+import { sanityClient, urlFor } from "../lib/sanity";
 
 interface IProps {
   data: {
@@ -17,11 +18,11 @@ const List = styled.div`
   padding: 0 20px;
 `;
 
-const collection: NextPage<IProps> = ({ data }) => {
+const collection: NextPage<IProps> = ({ sacs }) => {
   return (
     <List>
       <Collection
-        sacs={data}
+        sacs={sacs}
         limit={-1}
         titre="Toute la collection"
         ramdom={false}
@@ -33,12 +34,13 @@ const collection: NextPage<IProps> = ({ data }) => {
 export default collection;
 
 export async function getStaticProps() {
-  const res = await fetch("https://rickandmortyapi.com/api/character");
-  const data = await res.json();
+  const sacsQuery = `*[_type =="sacs"]`;
+
+  const sacs = await sanityClient.fetch(sacsQuery);
 
   return {
     props: {
-      data,
+      sacs,
     },
   };
 }

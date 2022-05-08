@@ -6,6 +6,7 @@ import Link from "next/link";
 import { memo } from "react";
 import styled from "styled-components";
 import { theme } from "../theme";
+import { sanityClient, urlFor } from "../lib/sanity";
 
 const Slogan2 = styled.div`
   text-align: center;
@@ -82,18 +83,7 @@ const Sac = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  width: 100%;
-
-  > span {
-    position: unset !important;
-  }
-
-  .image {
-    object-fit: contain;
-    width: 100% !important;
-    position: relative !important;
-    height: unset !important;
-  }
+  background-color: ${theme.themeDark};
 `;
 const Title = styled.div<{ index: number }>`
   position: absolute;
@@ -107,6 +97,8 @@ const Title = styled.div<{ index: number }>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
   opacity: 0;
   :hover {
     opacity: 1;
@@ -149,32 +141,37 @@ const Collection: NextPage<IProps> = ({ sacs, limit, titre, ramdom }) => {
   function renderSacs(): JSX.Element[] {
     const shuffeled = () => {
       if (ramdom) {
-        return sacs.results
-          .sort(() => {
-            const randomTrueOrFalse = Math.random() > 0.5;
-            return randomTrueOrFalse ? 1 : -1;
-          })
-          .slice(0, limit);
+        return (
+          sacs &&
+          sacs
+            .sort(() => {
+              const randomTrueOrFalse = Math.random() > 0.5;
+              return randomTrueOrFalse ? 1 : -1;
+            })
+            .slice(0, limit)
+        );
       } else if (limit === 6 && titre !== "Vous pourriez aussi aimer") {
-        return sacs && sacs.results.slice(0, limit);
+        return sacs && sacs.slice(0, limit);
       } else {
-        return sacs.results;
+        return sacs;
       }
     };
 
-    return shuffeled().map((sac, i) => {
+    return shuffeled().map((sac: any, i: number) => {
+      const imageData = urlFor(sac.images[0]).url();
       return (
-        <Link key={sac.id} href={`/collection/${sac.id}`} passHref>
+        <Link key={sac.id} href={`/collection/${sac.slug?.current}`} passHref>
           <Sac>
             <Title index={i}>
-              <h2>{sac?.name}</h2>
+              <h2>{sac?.nom}</h2>
             </Title>
             <ImageWrapper>
               <Image
-                src={sac?.image}
-                layout="fill"
-                objectFit="cover"
-                alt={sac?.name}
+                src={imageData}
+                width="400"
+                height="400"
+                objectFit="contain"
+                alt={sac?.nom}
                 className="image"
               />
             </ImageWrapper>

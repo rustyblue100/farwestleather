@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app";
 import Layout from "../components/Layout";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
+import "normalize.css/normalize.css";
 
 import "@fortawesome/fontawesome-svg-core/styles.css"; // import Font Awesome CSS
 import { config } from "@fortawesome/fontawesome-svg-core";
@@ -24,7 +25,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-family:Georgia;
     line-height: 20px;
-    color:#242424;
+    color:#404040;
   }
 
 

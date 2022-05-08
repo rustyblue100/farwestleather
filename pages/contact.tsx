@@ -1,14 +1,17 @@
 import styled from "styled-components";
 import { theme } from "../theme";
 import Image from "next/image";
+import { useForm } from "react-hook-form";
 
 const Grid = styled.div`
   margin-top: 100px;
   display: flex;
   justify-content: space-between;
   gap: 100px;
+  padding: 0 20px;
 
   @media (max-width: ${theme.tablet}) {
+    margin-top: 40px;
     gap: 10px;
     flex-direction: column;
   }
@@ -58,7 +61,53 @@ const Description = styled.div`
   white-space: pre-line;
 `;
 
+const ContactForm = styled.div`
+  margin-top: 40px;
+
+  input,
+  textarea {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid ${theme.themeDark};
+    margin-bottom: 2rem;
+
+    :focus {
+      outline: none;
+      border-bottom: 2px solid ${theme.themeDark};
+    }
+  }
+
+  p {
+    color: red;
+  }
+`;
+
+const SubmitButton = styled.button`
+  border: none;
+  padding: 10px 15px;
+  color: ${theme.themeLight};
+  background-color: ${theme.themePrimary};
+  cursor: pointer;
+`;
+
 const contact = () => {
+  interface IFormInputs {
+    nom: string;
+    email: string;
+    tel: string;
+    message: string;
+  }
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInputs>();
+
+  const onSubmit = (data: IFormInputs) => console.log(data);
+
+  console.log(errors?.nom && errors);
+
   return (
     <Grid>
       <GridItem>
@@ -83,6 +132,42 @@ const contact = () => {
           la commande et la réception du produit. Envois internationaux
           possibles.
         </Description>
+
+        <ContactForm>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div>
+              <label>Nom</label>
+              <input
+                type="text"
+                {...register("nom", { required: "Ce champ est requis" })}
+              />
+              {errors?.nom && <p>{errors.nom.message}</p>}
+            </div>
+            <div>
+              <label>Adresse courriel</label>
+              <input
+                type="email"
+                {...register("email", { required: "Ce champ est requis" })}
+              />
+              {errors?.email && <p>{errors.email.message}</p>}
+            </div>
+            <div>
+              <label>Téléphone</label>
+              <input type="tel" {...register("tel", {})} />
+              {errors?.tel && <p>{errors.tel.message}</p>}
+            </div>
+            <div>
+              <label>Message</label>
+              <textarea
+                rows="5"
+                {...register("message", { required: "Ce champ est requis" })}
+              />
+              {errors?.message && <p>{errors.message.message}</p>}
+            </div>
+
+            <SubmitButton type="submit">Soumettre</SubmitButton>
+          </form>
+        </ContactForm>
       </GridItem>
     </Grid>
   );

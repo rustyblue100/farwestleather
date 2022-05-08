@@ -6,6 +6,7 @@ import Collection from "../components/Collection";
 import Head from "next/head";
 import type { NextPage } from "next";
 import { theme } from "../theme";
+import { sanityClient, urlFor } from "../lib/sanity";
 
 const Slogan = styled.div`
   text-align: center;
@@ -57,7 +58,6 @@ const Description = styled.div`
     position: relative;
     width: 570px;
     height: 380px;
-    padding-bottom: 20%;
 
     @media (max-width: ${theme.mobileL}) {
       display: none !important;
@@ -89,7 +89,7 @@ const Nouveaute = styled.div`
 `;
 
 interface IProps {
-  data: {
+  sacs: {
     results: {
       id: number;
       name: "string";
@@ -98,7 +98,7 @@ interface IProps {
   };
 }
 
-const Accueil: NextPage<IProps> = ({ data }) => {
+const Accueil: NextPage<IProps> = ({ sacs }) => {
   return (
     <>
       <Head>
@@ -142,7 +142,7 @@ const Accueil: NextPage<IProps> = ({ data }) => {
         </Description>
         <Nouveaute>
           <Collection
-            sacs={data}
+            sacs={sacs}
             limit={6}
             titre="Les nouvautés"
             ramdom={false}
@@ -156,12 +156,13 @@ const Accueil: NextPage<IProps> = ({ data }) => {
 export default Accueil;
 
 export async function getStaticProps() {
-  const res = await fetch("https://rickandmortyapi.com/api/character");
-  const data = await res.json();
+  const sacsQuery = `*[_type =="sacs"] | order(_createdAt desc)`;
+
+  const sacs = await sanityClient.fetch(sacsQuery);
 
   return {
     props: {
-      data,
+      sacs,
     },
   };
 }

@@ -52,6 +52,10 @@ const Social = styled.div<{ scrollMenu: boolean }>`
     :hover {
       background-color: ${theme.themePrimary};
       display: inline-block;
+
+      @media (max-width: ${theme.tablet}) {
+        background-color: unset;
+      }
     }
 
     @media (max-width: ${theme.tablet}) {
@@ -62,6 +66,10 @@ const Social = styled.div<{ scrollMenu: boolean }>`
   div:nth-child(2) {
     a:hover {
       background-color: ${theme.themeSecondary};
+
+      @media (max-width: ${theme.tablet}) {
+        background-color: unset;
+      }
     }
   }
 
@@ -112,11 +120,11 @@ const Menu = styled.div<{ scrollMenu: boolean }>`
 
     width: 100%;
     height: auto;
-    padding: 25px;
+    padding: 27px;
 
     :hover {
       background-color: ${theme.themePrimary};
-      display: inline-block;
+
       text-decoration: none;
     }
   }
@@ -124,7 +132,6 @@ const Menu = styled.div<{ scrollMenu: boolean }>`
   div:nth-child(2) {
     a:hover {
       background-color: ${theme.themeSecondary};
-      display: inline-block;
     }
   }
 

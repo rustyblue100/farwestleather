@@ -9,6 +9,7 @@ const nextConfig = {
       "i1.wp.com",
       "rickandmortyapi.com",
       "images.unsplash.com",
+      "cdn.sanity.io",
     ],
   },
 };

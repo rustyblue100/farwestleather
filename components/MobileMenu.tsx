@@ -28,9 +28,10 @@ const StyledMenu = styled.div<{ open: boolean }>`
 `;
 
 const ImageLogo = styled.div`
-  float: right;
   border-bottom: 1px solid ${theme.themeLight};
-
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 20px;
   img {
   }
 `;
@@ -39,6 +40,9 @@ const Menu: NextPage<any> = ({ open, setOpen }) => {
   return (
     <>
       <StyledMenu open={open}>
+        <ImageLogo>
+          <Image src={"/favicon.ico"} width="18" height="18" alt="logo" />
+        </ImageLogo>
         {MenuLinks.map((lien, i) => {
           return (
             <div key={i} onClick={() => setOpen(!open)}>
@@ -46,10 +50,6 @@ const Menu: NextPage<any> = ({ open, setOpen }) => {
             </div>
           );
         })}
-
-        <ImageLogo>
-          <Image src={"/favicon.ico"} width="18" height="18" alt="logo" />
-        </ImageLogo>
       </StyledMenu>
     </>
   );
