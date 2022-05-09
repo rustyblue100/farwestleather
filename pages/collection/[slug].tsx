@@ -265,7 +265,11 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
                   <ImageWrapper>
                     <Image
                       id="lightbox-img"
-                      src={urlFor(imageToShow).url()}
+                      src={
+                        !imageToShow
+                          ? urlFor(images[0]).url()
+                          : urlFor(imageToShow).url()
+                      }
                       layout="fill"
                       objectFit="contain"
                       alt="img"
