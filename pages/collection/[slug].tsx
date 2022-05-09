@@ -174,7 +174,7 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
 
   const [lightboxDisplay, setLightBoxDisplay] = useState(false);
   const [endNav, setEndNav] = useState(false);
-  const [imageToShow, setImageToShow] = useState(urlFor(images[0]).url());
+  const [imageToShow, setImageToShow] = useState("");
   const hideLightBox = () => {
     setLightBoxDisplay(false);
   };
@@ -212,11 +212,11 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
   const featuredImage = () => {
     return (
       <Image
-        width="1800"
-        height="1400"
+        width="800"
+        height="700"
         objectFit="contain"
         onClick={() => showImage(imageToShow)}
-        src={urlFor(imageToShow).url()}
+        src={!imageToShow ? urlFor(images[0]).url() : urlFor(imageToShow).url()}
         alt="img"
       />
     );
