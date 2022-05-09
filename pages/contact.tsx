@@ -3,6 +3,8 @@ import { theme } from "../theme";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { sanityClient, urlFor, PortableText } from "../lib/sanity";
+import type { NextPage } from "next";
+import Head from "next/head";
 
 const Grid = styled.div`
   margin-top: 100px;
@@ -91,20 +93,26 @@ const SubmitButton = styled.button`
   cursor: pointer;
 `;
 
-const contact = ({ desc }) => {
-  console.log(desc);
+interface IProps {
+  contactData: {
+    description: string;
+    image: string;
+  }[];
+}
 
-  interface IFormInputs {
-    nom: string;
-    email: string;
-    tel: string;
-    message: string;
-  }
+interface IFormInputs {
+  nom: string;
+  email: string;
+  tel: string;
+  message: string;
+}
 
+const contact: NextPage<IProps> = ({ contactData }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    // eslint-disable-next-line react-hooks/rules-of-hooks
   } = useForm<IFormInputs>();
 
   const onSubmit = (data: IFormInputs) => console.log(data);
@@ -112,72 +120,83 @@ const contact = ({ desc }) => {
   console.log(errors?.nom && errors);
 
   return (
-    <Grid>
-      <GridItem>
-        <Image
-          src="https://i2.wp.com/farwestleather.com/wp-content/uploads/2017/03/IMG_2124.jpg?w=685&ssl=1"
-          width="600"
-          height="1000"
-          alt="contact"
-        ></Image>
-      </GridItem>
-      <GridItem>
-        <Title>
-          <h4> Contact</h4>
-          <div className="divider"></div>
-        </Title>
-        <Description>
-          <PortableText value={desc[0]?.description} />
-        </Description>
+    <>
+      <Head>
+        <title>Contact - Farwestleather</title>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
+      </Head>
+      <Grid>
+        <GridItem>
+          <Image
+            src={urlFor(contactData[0].image).url()}
+            width="1000"
+            height="2000"
+            objectFit="cover"
+            alt="contact"
+            style={{ filter: "grayscale(1)" }}
+          ></Image>
+        </GridItem>
+        <GridItem>
+          <Title>
+            <h4> Contact</h4>
+            <div className="divider"></div>
+          </Title>
+          <Description>
+            <PortableText value={contactData[0]?.description} />
+          </Description>
 
-        <ContactForm>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
-              <label>Nom</label>
-              <input
-                type="text"
-                {...register("nom", { required: "Ce champ est requis" })}
-              />
-              {errors?.nom && <p>{errors.nom.message}</p>}
-            </div>
-            <div>
-              <label>Adresse courriel</label>
-              <input
-                type="email"
-                {...register("email", { required: "Ce champ est requis" })}
-              />
-              {errors?.email && <p>{errors.email.message}</p>}
-            </div>
-            <div>
-              <label>Téléphone</label>
-              <input type="tel" {...register("tel", {})} />
-              {errors?.tel && <p>{errors.tel.message}</p>}
-            </div>
-            <div>
-              <label>Message</label>
-              <textarea
-                rows="5"
-                {...register("message", { required: "Ce champ est requis" })}
-              />
-              {errors?.message && <p>{errors.message.message}</p>}
-            </div>
+          <ContactForm>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div>
+                <label>Nom</label>
+                <input
+                  type="text"
+                  {...register("nom", { required: "Ce champ est requis" })}
+                />
+                {errors?.nom && <p>{errors.nom.message}</p>}
+              </div>
+              <div>
+                <label>Adresse courriel</label>
+                <input
+                  type="email"
+                  {...register("email", { required: "Ce champ est requis" })}
+                />
+                {errors?.email && <p>{errors.email.message}</p>}
+              </div>
+              <div>
+                <label>Téléphone</label>
+                <input type="tel" {...register("tel", {})} />
+                {errors?.tel && <p>{errors.tel.message}</p>}
+              </div>
+              <div>
+                <label>Message</label>
+                <textarea
+                  rows={5}
+                  {...register("message", { required: "Ce champ est requis" })}
+                />
+                {errors?.message && <p>{errors.message.message}</p>}
+              </div>
 
-            <SubmitButton type="submit">Soumettre</SubmitButton>
-          </form>
-        </ContactForm>
-      </GridItem>
-    </Grid>
+              <SubmitButton type="submit">Soumettre</SubmitButton>
+            </form>
+          </ContactForm>
+        </GridItem>
+      </Grid>
+    </>
   );
 };
 
 export default contact;
 
 export async function getStaticProps() {
-  const desc = await sanityClient.fetch(`*[_type =="contact"]`);
+  const contactData = await sanityClient.fetch(`*[_type =="contact"]`);
 
   return {
     props: {
-      desc,
+      contactData,
     },
   };
 }

@@ -16,10 +16,16 @@ export default {
         },
       ],
     },
+    {
+      name: "nom",
+      title: "Nom",
+      type: "string",
+    },
   ],
 
   preview: {
     select: {
+      title: "nom",
       media: "images.0.asset",
     },
   },

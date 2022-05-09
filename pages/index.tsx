@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import Caroussel from "../components/Caroussel";
 import Image from "next/image";
@@ -11,7 +10,7 @@ import { sanityClient, PortableText } from "../lib/sanity";
 const Slogan = styled.div`
   text-align: center;
   align-items: center;
-  margin: 60px auto;
+  margin: 80px auto;
 
   h3 {
     font-size: 15px;
@@ -91,15 +90,18 @@ const Nouveaute = styled.div`
 interface IProps {
   sacs: {
     id: number;
-    name: string;
-    image: string;
+    nom: string;
+    images: [];
   }[];
 
   aPropos: {
     titre: string;
     description: string;
   }[];
-  carousselData: string;
+  carousselData: {
+    nom: string;
+    images: [];
+  }[];
 }
 
 const Accueil: NextPage<IProps> = ({ sacs, aPropos, carousselData }) => {
@@ -123,7 +125,7 @@ const Accueil: NextPage<IProps> = ({ sacs, aPropos, carousselData }) => {
         <Description>
           <div className="desc-img">
             <Image
-              src="https://i1.wp.com/farwestleather.com/wp-content/uploads/2017/10/sac-3-1-e1507753936255.jpg?fit=600%2C401&ssl=1"
+              src="/besace.jpeg"
               layout="fill"
               objectFit="cover"
               alt="sac"
@@ -134,7 +136,7 @@ const Accueil: NextPage<IProps> = ({ sacs, aPropos, carousselData }) => {
             <div className="desc-text">
               <h2>Inspiration</h2>
               <p>
-                <PortableText value={aPropos[1]?.description} />
+                <PortableText value={aPropos[0]?.description} />
               </p>
             </div>
           </div>
@@ -143,7 +145,7 @@ const Accueil: NextPage<IProps> = ({ sacs, aPropos, carousselData }) => {
           <Collection
             sacs={sacs}
             limit={6}
-            titre="Les nouvautés"
+            titre="Aperçu de la collection"
             ramdom={false}
           />
         </Nouveaute>

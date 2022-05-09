@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { theme } from "../theme";
 import MenuLinks from "../utils/menuLinks.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
+import Logo from "./Logo";
 import {
   faFacebookF,
   faPinterest,
@@ -34,7 +36,7 @@ const FooterWrapper = styled.div`
     text-transform: uppercase;
     font-weight: 400;
     font-size: 14px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 
     @media (max-width: ${theme.tablet}) {
       margin-top: 40px;
@@ -83,12 +85,11 @@ const FooterWrapper = styled.div`
 `;
 
 const Profile = styled.div`
-  flex: 1;
+  margin-right: 100px;
 `;
 
 const Liens = styled.div`
   flex: 1;
-  margin-left: 100px;
 
   @media (max-width: ${theme.tablet}) {
     margin-left: unset;
@@ -119,6 +120,29 @@ const SocialLink = styled.div`
   }
 `;
 
+const LogoWrap = styled.div`
+  margin-left: -17px;
+  width: 144px;
+  fill: ${theme.themeLight};
+  background-color: ${theme.themeDark};
+  height: auto;
+
+  position: relative;
+  cursor: pointer;
+
+  svg {
+    z-index: 999;
+    background: ${theme.themeDark};
+  }
+
+  @media (max-width: ${theme.tablet}) {
+    max-width: 84px;
+    margin-left: -10px;
+  }
+
+  transition: all ${theme.transitionDuration};
+`;
+
 const today = new Date();
 const yyyy = today.getFullYear();
 
@@ -127,6 +151,17 @@ const Footer = () => {
     <FooterContainer>
       <FooterWrapper>
         <Profile>
+          <Link href="/" passHref>
+            <LogoWrap>
+              <Logo />
+            </LogoWrap>
+          </Link>
+          <p className="copyright">
+            Tous droits réservés {yyyy} © Farwestleather
+          </p>
+        </Profile>
+
+        {/*         <Profile>
           <h3>Profile</h3>
           <p>
             Farwestleather c’est l’utilisation d’un cuir brut qui sera
@@ -139,7 +174,7 @@ const Footer = () => {
           <p className="copyright">
             Tous droits réservés {yyyy} © Farwestleather
           </p>
-        </Profile>
+        </Profile> */}
         <Liens>
           <h3>Liens</h3>
           <ul>

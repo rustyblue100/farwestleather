@@ -1,18 +1,14 @@
-import Image from "next/image";
-import { useState, useEffect } from "react";
-import styled from "styled-components";
-import { NextPage } from "next";
-import Collection from "../../components/Collection";
-import Link from "next/link";
-import { theme } from "../../theme";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faClose } from "@fortawesome/free-solid-svg-icons";
-import {
-  sanityClient,
-  urlFor,
-  usePreviewSubscription,
-  PortableText,
-} from "../../lib/sanity";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { GetStaticPaths, NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import styled from "styled-components";
+import Collection from "../../components/Collection";
+import { PortableText, sanityClient, urlFor } from "../../lib/sanity";
+import { theme } from "../../theme";
 
 const Container = styled.div`
   margin: 80px 20px;
@@ -47,9 +43,7 @@ const Caroussel = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-
     background-color: ${theme.themeDark};
-
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -151,7 +145,7 @@ const BackButton = styled.button`
   padding: 10px;
   color: ${theme.themePrimary};
   :hover {
-    color: ${theme.themeDark};
+    background-color: ${theme.themeGray100};
   }
 
   transition: ${theme.transitionDuration};
@@ -160,17 +154,23 @@ const BackButton = styled.button`
 interface IProps {
   sacs: {
     nom: string;
-    images: string;
-    description: string;
+    images: [];
+    description: [];
+    prix: number;
+    credit: string;
+  };
+
+  data: {
+    nom: string;
+    images: [];
+    description: [];
     prix: number;
     credit: string;
   }[];
-
-  data: {}[];
 }
 
 const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
-  const { nom, images, description, prix, credit }: IProps = sacs;
+  const { nom, images, description, prix, credit }: any = sacs;
 
   const [lightboxDisplay, setLightBoxDisplay] = useState(false);
   const [endNav, setEndNav] = useState(false);
@@ -191,7 +191,7 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
     e.stopPropagation();
     let currentIndex = images.indexOf(imageToShow);
     if (currentIndex >= images.length - 1) {
-      setLightBoxDisplay(true);
+      setLightBoxDisplay(false);
     } else {
       let nextImage = images[currentIndex + 1];
       setImageToShow(nextImage);
@@ -202,7 +202,7 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
     e.stopPropagation();
     let currentIndex = images.indexOf(imageToShow);
     if (currentIndex <= 0) {
-      setLightBoxDisplay(true);
+      setLightBoxDisplay(false);
     } else {
       let nextImage = images[currentIndex - 1];
       setImageToShow(nextImage);
@@ -239,6 +239,13 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
 
   return (
     <>
+      <Head>
+        <title>{nom} - Farwestleather</title>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
+      </Head>
       <Container>
         <Link href={"/collection"} passHref>
           <BackButton>
@@ -308,7 +315,7 @@ const sacsQuery = `*[_type =="sacs" && slug.current == $slug][0]{
   credit
 }`;
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const paths =
     await sanityClient.fetch(`*[_type =="sacs" && defined(slug.current)]{
       "params": {
@@ -317,18 +324,22 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: true,
+    fallback: false,
   };
 };
 
-export const getStaticProps = async ({ params }: { params: string }) => {
+type Params = {
+  params: {
+    slug: string;
+  };
+};
+
+export const getStaticProps = async ({ params }: Params) => {
   const { slug } = params;
 
   const sacs = await sanityClient.fetch(sacsQuery, { slug });
 
   const data = await sanityClient.fetch(`*[_type =="sacs"]`);
-
-  console.log(sacs);
 
   return {
     props: {

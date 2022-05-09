@@ -4,12 +4,12 @@ import Footer from "./Footer";
 import styled from "styled-components";
 import { NextPage } from "next";
 
-const Layout: NextPage<any> = ({ children }) => {
-  const Container = styled.div`
-    margin: 20px auto;
-    max-width: 1140px;
-  `;
+const Container = styled.div`
+  margin: 20px auto;
+  max-width: 1140px;
+`;
 
+const Layout: NextPage<any> = ({ children }) => {
   return (
     <>
       <Header />

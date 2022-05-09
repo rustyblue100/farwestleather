@@ -5,8 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { memo } from "react";
 import styled from "styled-components";
+import { urlFor } from "../lib/sanity";
 import { theme } from "../theme";
-import { sanityClient, urlFor } from "../lib/sanity";
 
 const Slogan2 = styled.div`
   text-align: center;
@@ -15,7 +15,7 @@ const Slogan2 = styled.div`
 
   h3 {
     font-size: 12px;
-    font-weight: 300;
+    font-weight: 400;
     color: ${theme.themeDark};
   }
 
@@ -26,6 +26,7 @@ const Slogan2 = styled.div`
     margin: 40px auto;
     color: #000;
     width: 95%;
+
     line-height: 1.5;
     max-width: 700px;
     color: ${theme.themeDark};
@@ -109,6 +110,7 @@ const Title = styled.div<{ index: number }>`
 
   h2 {
     font-size: 20px;
+    font-weight: 400;
   }
   transition: ${theme.transitionDuration};
 `;
@@ -126,12 +128,9 @@ const Plus = styled.div`
 
 interface IProps {
   sacs: {
-    results: {
-      id: number;
-      name: string;
-      image: string;
-    }[];
-  };
+    nom: string;
+    images: [];
+  }[];
 
   limit: number;
   titre: string;

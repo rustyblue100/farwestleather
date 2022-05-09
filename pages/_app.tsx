@@ -1,10 +1,10 @@
-import type { AppProps } from "next/app";
-import Layout from "../components/Layout";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
-import "normalize.css/normalize.css";
-
-import "@fortawesome/fontawesome-svg-core/styles.css"; // import Font Awesome CSS
 import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css"; // import Font Awesome CSS
+import type { AppProps } from "next/app";
+import "normalize.css/normalize.css";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
+import Layout from "../components/Layout";
+
 config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 
 const GlobalStyle = createGlobalStyle`

@@ -10,6 +10,7 @@ import "swiper/css/effect-fade";
 
 import { Autoplay, EffectFade } from "swiper";
 import { urlFor } from "../lib/sanity";
+import { NextPage } from "next";
 
 const SliderWrapper = styled.div`
   margin-top: 30px;
@@ -26,7 +27,14 @@ const SliderWrapper = styled.div`
   }
 `;
 
-const Caroussel = ({ carousselData }) => {
+interface IProps {
+  carousselData: {
+    nom: string;
+    images: [];
+  }[];
+}
+
+const Caroussel: NextPage<IProps> = ({ carousselData }) => {
   return (
     <SliderWrapper>
       <Swiper
@@ -43,8 +51,7 @@ const Caroussel = ({ carousselData }) => {
         onSwiper={(swiper) => console.log(swiper)}
         modules={[Autoplay, EffectFade]}
       >
-        {carousselData[0].images?.map((slide, i) => {
-          console.log(slide);
+        {carousselData[0].images?.map((slide: any, i: number) => {
           return (
             <SwiperSlide key={i}>
               <Image
