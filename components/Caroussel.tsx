@@ -56,8 +56,8 @@ const Caroussel: NextPage<IProps> = ({ carousselData }) => {
             <SwiperSlide key={i}>
               <Image
                 src={urlFor(slide).url()}
-                width="1600"
-                height="1200"
+                width="1120"
+                height="840"
                 objectFit="contain"
                 alt="image1"
               />

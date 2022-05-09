@@ -289,7 +289,7 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
             <Description>
               <PortableText value={description} />
             </Description>
-            <p> Prix à partir de : {prix}$</p>
+            Prix à partir de : {prix}$
           </GridItem>
         </Grid>
         <Collection

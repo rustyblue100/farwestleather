@@ -48,12 +48,14 @@ const theme = {
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
+    <>
       <GlobalStyle />
-      <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
-      </ThemeProvider>{" "}
-    </Layout>
+      <Layout>
+        <ThemeProvider theme={theme}>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </Layout>
+    </>
   );
 }
 
