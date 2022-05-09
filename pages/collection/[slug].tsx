@@ -8,13 +8,12 @@ import { useState } from "react";
 import styled from "styled-components";
 import Collection from "../../components/Collection";
 import { PortableText, sanityClient, urlFor } from "../../lib/sanity";
-import { theme } from "../../theme";
 
 const Container = styled.div`
   margin: 80px 20px;
   max-width: 1140px;
 
-  @media (max-width: ${theme.tablet}) {
+  @media (max-width: ${({ theme }) => theme.media.tablet}) {
     margin: 20px 20px;
     flex-direction: column;
   }
@@ -26,7 +25,7 @@ const Grid = styled.div`
   justify-content: space-between;
   gap: 100px;
 
-  @media (max-width: ${theme.tablet}) {
+  @media (max-width: ${({ theme }) => theme.media.tablet}) {
     gap: 10px;
     flex-direction: column;
   }
@@ -43,7 +42,7 @@ const Caroussel = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: ${theme.themeDark};
+    background-color: ${({ theme }) => theme.colors.themeDark};
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -53,7 +52,7 @@ const Caroussel = styled.div`
 const Featured = styled.div`
   margin-bottom: 20px;
   cursor: zoom-in;
-  background-color: ${theme.themeDark};
+  background-color: ${({ theme }) => theme.colors.themeDark};
 `;
 
 const Thumbnails = styled.div`
@@ -90,7 +89,7 @@ const PageTitle = styled.h1`
 `;
 
 const Divider = styled.div`
-  border-bottom: 2px solid ${theme.themeSecondary};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.themeSecondary};
 `;
 
 const Credit = styled.div`
@@ -99,21 +98,21 @@ const Credit = styled.div`
   bottom: 162px;
   right: -28px;
   transform: rotate(-90deg);
-  color: ${theme.themeGray100};
+  color: ${({ theme }) => theme.colors.themeGray100};
 `;
 
 const ButtonNav = styled.button`
   cursor: pointer;
   border: 0;
   background: none;
-  color: ${theme.themeLight};
+  color: ${({ theme }) => theme.colors.themeLight};
   font-size: 20px;
 
   :hover {
-    background-color: ${theme.themePrimary};
+    background-color: ${({ theme }) => theme.colors.themePrimary};
   }
 
-  transition: ${theme.transitionDuration};
+  transition: ${({ theme }) => theme.transitionDuration};
 `;
 
 const CloseButton = styled.button`
@@ -126,12 +125,12 @@ const CloseButton = styled.button`
   z-index: 999;
   cursor: pointer;
   padding: 14px;
-  color: ${theme.themeLight};
+  color: ${({ theme }) => theme.colors.themeLight};
   :hover {
-    background-color: ${theme.themePrimary};
+    background-color: ${({ theme }) => theme.colors.sthemePrimary};
   }
 
-  transition: ${theme.transitionDuration};
+  transition: ${({ theme }) => theme.transitionDuration};
 `;
 
 const BackButton = styled.button`
@@ -143,12 +142,12 @@ const BackButton = styled.button`
   border: 0;
   background: none;
   padding: 10px;
-  color: ${theme.themePrimary};
+  color: ${({ theme }) => theme.colors.themePrimary};
   :hover {
-    background-color: ${theme.themeGray100};
+    background-color: ${({ theme }) => theme.colors.themeGray100};
   }
 
-  transition: ${theme.transitionDuration};
+  transition: ${({ theme }) => theme.transitionDuration};
 `;
 
 interface IProps {

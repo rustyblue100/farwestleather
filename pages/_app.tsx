@@ -43,19 +43,42 @@ const GlobalStyle = createGlobalStyle`
 const theme = {
   colors: {
     primary: "#0070f3",
+    themeDark: "#010101",
+    themeLight: "#fffffc",
+    themePrimary: "#b7990d",
+    themeSecondary: "#8cada7",
+    themeTertiary: "#8cada7",
+    themeGray100: "#ebe5e5",
+    themeGray500: "#9d9d9d",
+    themeGray700: "#606060",
+    themeGray900: "#242424",
+    themeBody: "#404040",
   },
+
+  primaryHover: "#343078",
+
+  media: {
+    mobile: "576px",
+    mobileS: "320px",
+    mobileM: "375px",
+    mobileL: "425px",
+    tablet: "769px",
+    laptop: "1024px",
+    laptopL: "1440px",
+    desktop: "2560px",
+  },
+
+  transitionDuration: "0.4s",
 };
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Layout>
-        <ThemeProvider theme={theme}>
-          <Component {...pageProps} />
-        </ThemeProvider>
+        <Component {...pageProps} />
       </Layout>
-    </>
+    </ThemeProvider>
   );
 }
 

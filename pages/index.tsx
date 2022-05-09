@@ -4,7 +4,7 @@ import Image from "next/image";
 import Collection from "../components/Collection";
 import Head from "next/head";
 import type { NextPage } from "next";
-import { theme } from "../theme";
+
 import { sanityClient, PortableText } from "../lib/sanity";
 
 const Slogan = styled.div`
@@ -15,7 +15,7 @@ const Slogan = styled.div`
   h3 {
     font-size: 15px;
     font-weight: 300;
-    color: ${theme.themePrimary};
+    color: ${({ theme }) => theme.colors.themePrimary};
   }
 
   h4 {
@@ -25,19 +25,19 @@ const Slogan = styled.div`
     margin: 40px auto;
     color: #000;
     line-height: 1.5;
-    color: ${theme.themeDark};
+    color: ${({ theme }) => theme.colors.themeDark};
   }
 
   .divider {
     padding-top: 20px;
     display: block;
-    border-bottom: 2px solid ${theme.themeSecondary};
+    border-bottom: 2px solid ${({ theme }) => theme.colors.themeSecondary};
     width: 273px;
     margin: 20px auto;
     text-align: center;
   }
 
-  @media (max-width: ${theme.mobileL}) {
+  @media (max-width: ${({ theme }) => theme.media.mobileL}) {
     max-width: 384px;
   }
 `;
@@ -48,7 +48,7 @@ const Description = styled.div`
   align-items: center;
   margin: 100px 0 40px 0;
 
-  @media (max-width: ${theme.mobileL}) {
+  @media (max-width: ${({ theme }) => theme.media.mobileL}) {
     flex-direction: column;
     margin: 80px 0 40px 0;
   }
@@ -58,7 +58,7 @@ const Description = styled.div`
     width: 570px;
     height: 380px;
 
-    @media (max-width: ${theme.mobileL}) {
+    @media (max-width: ${({ theme }) => theme.media.mobileL}) {
       display: none !important;
     }
   }
@@ -66,18 +66,18 @@ const Description = styled.div`
   .desc-wrapper {
     width: 570px;
     height: 380px;
-    background-color: ${theme.themePrimary};
+    background-color: ${({ theme }) => theme.colors.themePrimary};
 
-    @media (max-width: ${theme.mobileL}) {
+    @media (max-width: ${({ theme }) => theme.colors.mobileL}) {
       width: 100%;
     }
   }
 
   .desc-text {
     padding: 70px;
-    color: ${theme.themeLight};
+    color: ${({ theme }) => theme.colors.themeLight};
 
-    @media (max-width: ${theme.laptop}) {
+    @media (max-width: ${({ theme }) => theme.colors.laptop}) {
       padding: 40px;
     }
   }

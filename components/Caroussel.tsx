@@ -2,7 +2,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 import styled from "styled-components";
-import { theme } from "../theme";
 
 // Import Swiper styles
 import "swiper/css";
@@ -16,14 +15,14 @@ const SliderWrapper = styled.div`
   margin-top: 30px;
   box-sizing: border-box;
   padding: 10px;
-  background-color: ${theme.themeDark};
-  @media (max-width: ${theme.tablet}) {
+  background-color: ${({ theme }) => theme.colors.themeDark};
+  @media (max-width: ${({ theme }) => theme.media.tablet}) {
     margin-top: 0px;
     padding: 0 20px;
   }
 
   img {
-    background-color: ${theme.themeDark};
+    background-color: ${({ theme }) => theme.colors.themeDark};
   }
 `;
 

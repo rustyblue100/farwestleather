@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { theme } from "../theme";
+
 import MenuLinks from "../utils/menuLinks.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
@@ -18,8 +18,8 @@ library.add(faFacebookF);
 const FooterContainer = styled.div`
   margin-top: 200px;
   padding: 20px 0;
-  background-color: ${theme.themeDark};
-  color: ${theme.themeLight}; ;
+  background-color: ${({ theme }) => theme.colors.themeDark};
+  color: ${({ theme }) => theme.colors.themeLight}; ;
 `;
 
 const FooterWrapper = styled.div`
@@ -32,13 +32,13 @@ const FooterWrapper = styled.div`
   font-size: 14px;
 
   h3 {
-    color: ${theme.themePrimary};
+    color: ${({ theme }) => theme.colors.themePrimary};
     text-transform: uppercase;
     font-weight: 400;
     font-size: 14px;
     margin-bottom: 20px;
 
-    @media (max-width: ${theme.tablet}) {
+    @media (max-width: ${({ theme }) => theme.colors.tablet}) {
       margin-top: 40px;
       margin-bottom: 20px;
     }
@@ -52,7 +52,7 @@ const FooterWrapper = styled.div`
     margin-left: -28px;
     li {
       line-height: 2;
-      color: ${theme.themeLight};
+      color: ${({ theme }) => theme.colors.themeLight};
     }
   }
 
@@ -60,7 +60,7 @@ const FooterWrapper = styled.div`
     padding-top: 40px;
     font-size: 12px;
 
-    @media (max-width: ${theme.tablet}) {
+    @media (max-width: ${({ theme }) => theme.colors.tablet}) {
       display: none;
     }
   }
@@ -69,17 +69,17 @@ const FooterWrapper = styled.div`
     padding-top: 40px;
     font-size: 12px;
     display: none;
-    @media (max-width: ${theme.tablet}) {
+    @media (max-width: ${({ theme }) => theme.colors.tablet}) {
       display: block;
     }
   }
   padding: 0 20px;
 
-  @media (max-width: ${theme.tablet}) {
+  @media (max-width: ${({ theme }) => theme.colors.tablet}) {
     display: block;
   }
 
-  @media (max-width: ${theme.mobileL}) {
+  @media (max-width: ${({ theme }) => theme.colors.mobileL}) {
     display: block;
   }
 `;
@@ -91,12 +91,12 @@ const Profile = styled.div`
 const Liens = styled.div`
   flex: 1;
 
-  @media (max-width: ${theme.tablet}) {
+  @media (max-width: ${({ theme }) => theme.colors.tablet}) {
     margin-left: unset;
   }
 
   a {
-    color: ${theme.themeLight};
+    color: ${({ theme }) => theme.colors.themeLight};
     text-decoration: none;
 
     :hover {
@@ -113,18 +113,18 @@ const SocialLink = styled.div`
   justify-content: space-between;
 
   .items-social {
-    background-color: ${theme.themeGray700};
+    background-color: ${({ theme }) => theme.colors.themeGray700};
     padding: 5px 10px;
     margin-right: 2px;
-    color: ${theme.themeLight};
+    color: ${({ theme }) => theme.colors.themeLight};
   }
 `;
 
 const LogoWrap = styled.div`
   margin-left: -17px;
   width: 144px;
-  fill: ${theme.themeLight};
-  background-color: ${theme.themeDark};
+  fill: ${({ theme }) => theme.colors.themeLight};
+  background-color: ${({ theme }) => theme.colors.themeDark};
   height: auto;
 
   position: relative;
@@ -132,15 +132,15 @@ const LogoWrap = styled.div`
 
   svg {
     z-index: 999;
-    background: ${theme.themeDark};
+    background: ${({ theme }) => theme.colors.themeDark};
   }
 
-  @media (max-width: ${theme.tablet}) {
+  @media (max-width: ${({ theme }) => theme.colors.tablet}) {
     max-width: 84px;
     margin-left: -10px;
   }
 
-  transition: all ${theme.transitionDuration};
+  transition: all ${({ theme }) => theme.colors.transitionDuration};
 `;
 
 const today = new Date();

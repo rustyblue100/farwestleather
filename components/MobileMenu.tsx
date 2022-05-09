@@ -1,13 +1,12 @@
 import styled from "styled-components";
 import type { NextPage } from "next";
-import { theme } from "../theme";
 import Image from "next/image";
 import { bool } from "prop-types";
 import MenuLinks from "../utils/menuLinks.json";
 import Link from "next/link";
 
 const StyledMenu = styled.div<{ open: boolean }>`
-  background-color: ${theme.themeDark};
+  background-color: ${({ theme }) => theme.colors.themeDark};
   height: 100vh;
   transform: ${({ open }) => (open ? "translateX(0)" : "translateX(-100vw)")};
   width: 70%;
@@ -22,13 +21,13 @@ const StyledMenu = styled.div<{ open: boolean }>`
     line-height: 2;
     text-decoration: none;
     text-transform: capitalize;
-    color: ${theme.themeLight};
+    color: ${({ theme }) => theme.colors.themeLight};
   }
   transition: all 0.6s;
 `;
 
 const ImageLogo = styled.div`
-  border-bottom: 1px solid ${theme.themeLight};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.themeLight};
   display: inline-block;
   text-align: center;
   margin-bottom: 20px;

@@ -6,7 +6,6 @@ import Link from "next/link";
 import { memo } from "react";
 import styled from "styled-components";
 import { urlFor } from "../lib/sanity";
-import { theme } from "../theme";
 
 const Slogan2 = styled.div`
   text-align: center;
@@ -16,7 +15,7 @@ const Slogan2 = styled.div`
   h3 {
     font-size: 12px;
     font-weight: 400;
-    color: ${theme.themeDark};
+    color: ${({ theme }) => theme.colors.themeDark};
   }
 
   h4 {
@@ -29,7 +28,7 @@ const Slogan2 = styled.div`
 
     line-height: 1.5;
     max-width: 700px;
-    color: ${theme.themeDark};
+    color: ${({ theme }) => theme.media.themeDark};
   }
 
   .divider {
@@ -41,7 +40,7 @@ const Slogan2 = styled.div`
     text-align: center;
   }
 
-  @media (max-width: ${theme.mobileL}) {
+  @media (max-width: ${({ theme }) => theme.media.mobileL}) {
     margin: 80px auto 100px auto;
   }
 `;
@@ -55,7 +54,7 @@ const SacsWrapper = styled.div`
   margin-bottom: 100px;
   gap: 5px;
 
-  @media (max-width: ${theme.mobileL}) {
+  @media (max-width: ${({ theme }) => theme.media.mobileL}) {
     justify-content: flex-start;
   }
 `;
@@ -74,22 +73,22 @@ const Sac = styled.div`
     }
   }
 
-  @media (max-width: ${theme.laptop}) {
+  @media (max-width: ${({ theme }) => theme.media.laptop}) {
     flex: 0 0 49%;
   }
 
-  @media (max-width: ${theme.mobileL}) {
+  @media (max-width: ${({ theme }) => theme.media.mobileL}) {
     flex: 0 0 100%;
   }
 `;
 
 const ImageWrapper = styled.div`
-  background-color: ${theme.themeDark};
+  background-color: ${({ theme }) => theme.colors.themeDark};
 `;
 const Title = styled.div<{ index: number }>`
   position: absolute;
   font-size: 18px;
-  color: ${theme.themeLight};
+  color: ${({ theme }) => theme.colors.themeLight};
   z-index: 99;
   width: 100%;
   height: 100%;
@@ -104,7 +103,9 @@ const Title = styled.div<{ index: number }>`
   :hover {
     opacity: 1;
     background-color: ${(props) => {
-      return props.index % 2 == 0 ? theme.themePrimary : theme.themeSecondary;
+      return props.index % 2 == 0
+        ? props.theme.colors.themePrimary
+        : props.theme.colors.themeSecondary;
     }};
   }
 
@@ -112,7 +113,7 @@ const Title = styled.div<{ index: number }>`
     font-size: 20px;
     font-weight: 400;
   }
-  transition: ${theme.transitionDuration};
+  transition: ${({ theme }) => theme.transitionDuration};
 `;
 
 const Plus = styled.div`
@@ -122,7 +123,7 @@ const Plus = styled.div`
 
   a {
     text-decoration: none;
-    color: ${theme.themeGray700};
+    color: ${({ theme }) => theme.colors.themeGray700};
   }
 `;
 

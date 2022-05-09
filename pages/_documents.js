@@ -1,5 +1,4 @@
-/* eslint-disable @next/next/no-sync-scripts */
-import Document, { Html, Head, Main, NextScript } from "next/document";
+import Document from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
@@ -27,21 +26,5 @@ export default class MyDocument extends Document {
     } finally {
       sheet.seal();
     }
-  }
-  render() {
-    return (
-      <Html lang="fr">
-        <Head>
-          <script
-            src="https://kit.fontawesome.com/3eb7036e33.js"
-            crossOrigin="anonymous"
-          />
-        </Head>
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    );
   }
 }

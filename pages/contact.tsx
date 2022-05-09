@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { theme } from "../theme";
+
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { sanityClient, urlFor, PortableText } from "../lib/sanity";
@@ -13,7 +13,7 @@ const Grid = styled.div`
   gap: 100px;
   padding: 0 20px;
 
-  @media (max-width: ${theme.tablet}) {
+  @media (max-width: ${({ theme }) => theme.media.tablet}) {
     margin-top: 40px;
     gap: 10px;
     flex-direction: column;
@@ -28,7 +28,7 @@ const Title = styled.div`
   h3 {
     font-size: 12px;
     font-weight: 300;
-    color: ${theme.themeDark};
+    color: ${({ theme }) => theme.colors.themeDark};
   }
 
   h4 {
@@ -40,7 +40,7 @@ const Title = styled.div`
     width: 95%;
     line-height: 1.5;
     max-width: 700px;
-    color: ${theme.themeDark};
+    color: ${({ theme }) => theme.colors.themeDark};
   }
 
   .divider {
@@ -52,7 +52,7 @@ const Title = styled.div`
     text-align: center;
   }
 
-  @media (max-width: ${theme.mobileL}) {
+  @media (max-width: ${({ theme }) => theme.colors.mobileL}) {
     margin: 80px auto 100px auto;
   }
 `;
@@ -71,12 +71,12 @@ const ContactForm = styled.div`
   textarea {
     width: 100%;
     border: none;
-    border-bottom: 1px solid ${theme.themeDark};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.themeDark};
     margin-bottom: 2rem;
 
     :focus {
       outline: none;
-      border-bottom: 2px solid ${theme.themeDark};
+      border-bottom: 2px solid ${({ theme }) => theme.colors.themeDark};
     }
   }
 
@@ -88,8 +88,8 @@ const ContactForm = styled.div`
 const SubmitButton = styled.button`
   border: none;
   padding: 10px 15px;
-  color: ${theme.themeLight};
-  background-color: ${theme.themePrimary};
+  color: ${({ theme }) => theme.colors.themeLight};
+  background-color: ${({ theme }) => theme.colors.themePrimary};
   cursor: pointer;
 `;
 
