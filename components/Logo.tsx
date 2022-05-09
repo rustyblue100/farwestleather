@@ -10,7 +10,6 @@ const Logo = () => {
       x="0px"
       y="0px"
       viewBox="0 0 433.8 341.7"
-      width="184"
       xmlSpace="preserve"
     >
       <g>

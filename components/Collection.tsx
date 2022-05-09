@@ -159,7 +159,7 @@ const Collection: NextPage<IProps> = ({ sacs, limit, titre, ramdom }) => {
     return shuffeled().map((sac: any, i: number) => {
       const imageData = urlFor(sac.images[0]).url();
       return (
-        <Link key={sac.id} href={`/collection/${sac.slug?.current}`} passHref>
+        <Link key={sac._id} href={`/collection/${sac.slug?.current}`} passHref>
           <Sac>
             <Title index={i}>
               <h2>{sac?.nom}</h2>

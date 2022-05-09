@@ -135,9 +135,7 @@ const Accueil: NextPage<IProps> = ({ sacs, aPropos, carousselData }) => {
           <div className="desc-wrapper">
             <div className="desc-text">
               <h2>Inspiration</h2>
-              <p>
-                <PortableText value={aPropos[0]?.description} />
-              </p>
+              <PortableText value={aPropos[0]?.description} />
             </div>
           </div>
         </Description>

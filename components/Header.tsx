@@ -166,7 +166,6 @@ const Header: React.FC = () => {
   return (
     <Navbar scrollMenu={colorchange}>
       <Container>
-        <MobileMenu open={open} setOpen={setOpen} />
         <Social scrollMenu={colorchange}>
           <div className="items-social">
             <a
@@ -215,6 +214,7 @@ const Header: React.FC = () => {
 
         <MobileMenuWrapper>
           <Burger open={open} setOpen={setOpen} colorchange={colorchange} />
+          <MobileMenu open={open} setOpen={setOpen} />
         </MobileMenuWrapper>
       </Container>
     </Navbar>
