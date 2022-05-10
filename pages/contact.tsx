@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import { motion, useAnimation } from "framer-motion";
-import Image from "next/image";
 import { useForm, ValidationError } from "@formspree/react";
-import { sanityClient, urlFor, PortableText } from "../lib/sanity";
+import { motion } from "framer-motion";
 import type { NextPage } from "next";
 import Head from "next/head";
+import Image from "next/image";
+import styled from "styled-components";
+import { PortableText, sanityClient, urlFor } from "../lib/sanity";
 
 const Grid = styled.div`
   margin-top: 100px;

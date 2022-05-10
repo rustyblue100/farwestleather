@@ -1,14 +1,13 @@
-import styled from "styled-components";
-import { useEffect, useState } from "react";
-import Caroussel from "../components/Caroussel";
-import Image from "next/image";
-import Collection from "../components/Collection";
-import Head from "next/head";
-import type { NextPage } from "next";
-import { useInView } from "react-intersection-observer";
 import { motion, useAnimation } from "framer-motion";
-
-import { sanityClient, PortableText } from "../lib/sanity";
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
+import styled from "styled-components";
+import Caroussel from "../components/Caroussel";
+import Collection from "../components/Collection";
+import { PortableText, sanityClient } from "../lib/sanity";
 
 const Slogan = styled.div`
   text-align: center;
@@ -138,10 +137,6 @@ const Accueil: NextPage<IProps> = ({ sacs, aPropos, carousselData }) => {
     hidden: { opacity: 0 },
   };
 
-  const variants2 = {
-    visible: { opacity: 1, y: 0 },
-    hidden: { opacity: 0, y: 20 },
-  };
   return (
     <>
       <Head>

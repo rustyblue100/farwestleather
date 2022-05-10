@@ -1,16 +1,15 @@
 import { faAngleLeft, faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { motion, useAnimation } from "framer-motion";
 import { GetStaticPaths, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import styled from "styled-components";
 import Collection from "../../components/Collection";
 import { PortableText, sanityClient, urlFor } from "../../lib/sanity";
-import { useInView } from "react-intersection-observer";
-import { motion, useAnimation } from "framer-motion";
-import { useEffect } from "react";
 
 const Container = styled.div`
   margin: 80px 20px;
