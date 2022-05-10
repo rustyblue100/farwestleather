@@ -354,6 +354,7 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
           animate={controls3}
           transition={{ duration: 1 }}
           ref={ref3}
+          onClick={() => setImageToShow("")}
         >
           <Collection
             sacs={data}
