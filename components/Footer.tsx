@@ -1,5 +1,6 @@
 import styled from "styled-components";
-
+import CookieConsent from "react-cookie-consent";
+import { useState } from "react";
 import MenuLinks from "../utils/menuLinks.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
@@ -148,20 +149,47 @@ const yyyy = today.getFullYear();
 
 const Footer = () => {
   return (
-    <FooterContainer>
-      <FooterWrapper>
-        <Profile>
-          <Link href="/" passHref>
-            <LogoWrap>
-              <Logo />
-            </LogoWrap>
-          </Link>
-          <p className="copyright">
-            Tous droits réservés {yyyy} © Farwestleather
-          </p>
-        </Profile>
+    <>
+      <CookieConsent
+        style={{
+          backgroundColor: "#8cada7de",
+          width: "400px",
+          justifyContent: "flex-end",
+          left: "unset",
+          right: 0,
+        }}
+        acceptOnScroll={true}
+        acceptOnScrollPercentage={80}
+        buttonText="Je comprends"
+        buttonStyle={{
+          backgroundColor: "#010101",
+          color: "white",
+        }}
+      >
+        <p style={{ color: "#ffffff" }}>
+          Nous utilisons des cookies pour nous permettre de mieux comprendre
+          comment le site est utilisé. En continuant à utiliser ce site, vous
+          acceptez notre
+        </p>
+        <Link href={"/confidentialite"} passHref>
+          <a style={{ color: "#ffffff" }}>politique de confidentialité</a>
+        </Link>
+        .
+      </CookieConsent>
+      <FooterContainer>
+        <FooterWrapper>
+          <Profile>
+            <Link href="/" passHref>
+              <LogoWrap>
+                <Logo />
+              </LogoWrap>
+            </Link>
+            <p className="copyright">
+              Tous droits réservés {yyyy} © Farwestleather
+            </p>
+          </Profile>
 
-        {/*         <Profile>
+          {/*         <Profile>
           <h3>Profile</h3>
           <p>
             Farwestleather c’est l’utilisation d’un cuir brut qui sera
@@ -175,66 +203,74 @@ const Footer = () => {
             Tous droits réservés {yyyy} © Farwestleather
           </p>
         </Profile> */}
-        <Liens>
-          <h3>Liens</h3>
-          <ul>
-            {MenuLinks.map((lien, i) => {
-              return (
-                <li key={i}>
-                  <Link href={lien.slug}>{lien.titre}</Link>
-                </li>
-              );
-            })}
-          </ul>
-        </Liens>
+          <Liens>
+            <h3>Liens</h3>
+            <ul>
+              {MenuLinks.map((lien, i) => {
+                return (
+                  <>
+                    <li key={i}>
+                      <Link href={lien.slug}>{lien.titre}</Link>
+                    </li>
+                  </>
+                );
+              })}
+              <li>
+                <Link href={"/confidentialite"} passHref>
+                  <a>Politique de confidentialité</a>
+                </Link>
+              </li>
+            </ul>
+          </Liens>
 
-        <Social>
-          <h3>SOCIALE</h3>
-          <SocialLink>
-            <div className="items-social">
-              <a
-                target="_blank"
-                href="https://www.facebook.com/cuirsfarwest/"
-                rel="noopener noreferrer"
-              >
-                <FontAwesomeIcon
-                  icon={faFacebookF}
-                  style={{ fontSize: 15, color: "white" }}
-                />
-              </a>
-            </div>
-            <div className="items-social">
-              <a
-                target="_blank"
-                href="https://www.pinterest.ca/blanchard2603/pins/"
-                rel="noopener noreferrer"
-              >
-                <FontAwesomeIcon
-                  icon={faPinterest}
-                  style={{ fontSize: 15, color: "white" }}
-                />
-              </a>
-            </div>
-            <div className="items-social">
-              <a
-                target="_blank"
-                href="https://www.instagram.com/blanchard.fabien/"
-                rel="noopener noreferrer"
-              >
-                <FontAwesomeIcon
-                  icon={faInstagram}
-                  style={{ fontSize: 15, color: "white" }}
-                />
-              </a>
-            </div>
-          </SocialLink>
+          <Social>
+            <h3>SOCIALE</h3>
+            <SocialLink>
+              <div className="items-social">
+                <a
+                  target="_blank"
+                  href="https://www.facebook.com/cuirsfarwest/"
+                  rel="noopener noreferrer"
+                >
+                  <FontAwesomeIcon
+                    icon={faFacebookF}
+                    style={{ fontSize: 15, color: "white" }}
+                  />
+                </a>
+              </div>
+              <div className="items-social">
+                <a
+                  target="_blank"
+                  href="https://www.pinterest.ca/blanchard2603/pins/"
+                  rel="noopener noreferrer"
+                >
+                  <FontAwesomeIcon
+                    icon={faPinterest}
+                    style={{ fontSize: 15, color: "white" }}
+                  />
+                </a>
+              </div>
+              <div className="items-social">
+                <a
+                  target="_blank"
+                  href="https://www.instagram.com/blanchard.fabien/"
+                  rel="noopener noreferrer"
+                >
+                  <FontAwesomeIcon
+                    icon={faInstagram}
+                    style={{ fontSize: 15, color: "white" }}
+                  />
+                </a>
+              </div>
+            </SocialLink>
 
-          <p className="copyright-mobile">
-            Tous droits réservés {yyyy} © Farwestleather
-          </p>
-        </Social>
-      </FooterWrapper>
-    </FooterContainer>
+            <p className="copyright-mobile">
+              Tous droits réservés {yyyy} © Farwestleather
+            </p>
+          </Social>
+        </FooterWrapper>
+      </FooterContainer>
+    </>
   );
 };
 
