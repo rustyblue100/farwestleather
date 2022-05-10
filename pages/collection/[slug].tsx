@@ -68,17 +68,6 @@ const Thumbnails = styled.div`
 
 const ImageWrapper = styled.div`
   max-width: 100%;
-
-  > span {
-    position: unset !important;
-  }
-
-  .image {
-    object-fit: contain;
-    width: 100% !important;
-    position: relative !important;
-    height: unset !important;
-  }
 `;
 
 const Description = styled.div`
