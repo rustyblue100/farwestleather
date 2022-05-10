@@ -220,7 +220,7 @@ const Accueil: NextPage<IProps> = ({ sacs, aPropos, carousselData }) => {
 export default Accueil;
 
 export async function getStaticProps() {
-  const sacsQuery = `*[_type =="sacs"] | order(order asc)`;
+  const sacsQuery = `*[_type =="sacs"] | order(order asc) `;
   const aProposQuery = `*[_type =="a-propos"]`;
   const carousselQuery = `*[_type =="caroussel"]`;
 

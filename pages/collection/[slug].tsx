@@ -209,6 +209,7 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
 
   const hideLightBox = () => {
     setLightBoxDisplay(false);
+    setImageToShow("");
   };
 
   const showImage = (image: string) => {
