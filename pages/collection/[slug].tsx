@@ -67,7 +67,7 @@ const Thumbnails = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  width: 68%;
+  max-width: 100%;
 
   > span {
     position: unset !important;
