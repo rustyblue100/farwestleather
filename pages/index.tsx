@@ -174,7 +174,7 @@ const Accueil: NextPage<IProps> = ({ sacs, aPropos, carousselData }) => {
           <div className="desc-img">
             <Image
               priority={true}
-              quality={50}
+              quality={60}
               src="/besace.jpeg"
               layout="fill"
               objectFit="cover"
