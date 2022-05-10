@@ -147,14 +147,7 @@ const Accueil: NextPage<IProps> = ({ sacs, aPropos, carousselData }) => {
         />
       </Head>
       <>
-        <motion.div
-          variants={variants}
-          initial="hidden"
-          animate="visible"
-          transition={{ duration: 1 }}
-        >
-          <Caroussel carousselData={carousselData} />
-        </motion.div>
+        <Caroussel carousselData={carousselData} />
 
         <Slogan>
           <h3>FARWEST&#8226;LEATHER</h3>
@@ -170,31 +163,23 @@ const Accueil: NextPage<IProps> = ({ sacs, aPropos, carousselData }) => {
           <div className="divider"></div>
         </Slogan>
 
-        <motion.div
-          variants={variants}
-          initial="hidden"
-          animate={controls2}
-          transition={{ duration: 1 }}
-          ref={ref2}
-        >
-          <Description>
-            <div className="desc-img">
-              <Image
-                src="/besace.jpeg"
-                layout="fill"
-                objectFit="cover"
-                alt="sac"
-              />
-            </div>
+        <Description>
+          <div className="desc-img">
+            <Image
+              src="/besace.jpeg"
+              layout="fill"
+              objectFit="cover"
+              alt="sac"
+            />
+          </div>
 
-            <div className="desc-wrapper">
-              <div className="desc-text">
-                <h2>Inspiration</h2>
-                <PortableText value={aPropos[0]?.description} />
-              </div>
+          <div className="desc-wrapper">
+            <div className="desc-text">
+              <h2>Inspiration</h2>
+              <PortableText value={aPropos[0]?.description} />
             </div>
-          </Description>
-        </motion.div>
+          </div>
+        </Description>
 
         <Nouveaute>
           <motion.div

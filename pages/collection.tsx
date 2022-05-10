@@ -29,8 +29,8 @@ const collection: NextPage<IProps> = ({ sacs }) => {
   return (
     <motion.div
       variants={variants2}
-      initial="hidden"
-      animate="visible"
+      /*    initial="hidden"
+      animate="visible" */
       transition={{ duration: 1 }}
     >
       <Head>

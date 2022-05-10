@@ -20,6 +20,17 @@ const Grid = styled.div`
   }
 `;
 
+const Thanks = styled.div`
+  padding-top: 200px;
+  font-size: 24px;
+  margin: 0 auto;
+  text-align: center;
+
+  @media (max-width: ${({ theme }) => theme.media.tablet}) {
+    font-size: 20px;
+  }
+`;
+
 const Title = styled.div`
   text-align: center;
   align-items: center;
@@ -105,7 +116,11 @@ const contact: NextPage<IProps> = ({ contactData }) => {
   const [state, handleSubmit] = useForm("mwkyaveg");
 
   if (state.succeeded) {
-    return <p>Merci! Je vous contacterai sous peu.</p>;
+    return (
+      <Thanks>
+        <p>Merci! Je vous contacterai sous peu.</p>
+      </Thanks>
+    );
   }
 
   const variants = {

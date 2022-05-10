@@ -6,6 +6,9 @@ import Link from "next/link";
 import { memo } from "react";
 import styled from "styled-components";
 import { urlFor } from "../lib/sanity";
+import { motion, useAnimation } from "framer-motion";
+import { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 
 const Slogan2 = styled.div`
   text-align: center;
@@ -138,6 +141,32 @@ interface IProps {
   ramdom: boolean;
 }
 const Collection: NextPage<IProps> = ({ sacs, limit, titre, ramdom }) => {
+  const [ref, inView] = useInView({ threshold: 0.2 });
+  const [ref2, inView2] = useInView({ threshold: 0.5 });
+  const [ref3, inView3] = useInView({ threshold: 0 });
+  const controls = useAnimation();
+  const controls2 = useAnimation();
+  const controls3 = useAnimation();
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+
+    if (inView2) {
+      controls2.start("visible");
+    }
+
+    if (inView3) {
+      controls3.start("visible");
+    }
+  }, [controls, inView, controls2, inView2, controls3, inView3]);
+
+  const variants = {
+    visible: { opacity: 1 },
+    hidden: { opacity: 0 },
+  };
+
   function renderSacs(): JSX.Element[] {
     const shuffeled = () => {
       if (ramdom) {
@@ -166,14 +195,21 @@ const Collection: NextPage<IProps> = ({ sacs, limit, titre, ramdom }) => {
               <h2>{sac?.nom}</h2>
             </Title>
             <ImageWrapper>
-              <Image
-                src={imageData}
-                width="400"
-                height="400"
-                objectFit="contain"
-                alt={sac?.nom}
-                className="image"
-              />
+              <motion.div
+                variants={variants}
+                initial="hidden"
+                animate="visible"
+                transition={{ duration: 1 }}
+              >
+                <Image
+                  src={imageData}
+                  width="400"
+                  height="400"
+                  objectFit="contain"
+                  alt={sac?.nom}
+                  className="image"
+                />
+              </motion.div>
             </ImageWrapper>
           </Sac>
         </Link>
