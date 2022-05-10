@@ -231,12 +231,15 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
 
   const showNext = (e: any): void => {
     e.stopPropagation();
+
     let currentIndex = images.indexOf(imageToShow);
     if (currentIndex >= images.length - 1) {
       setLightBoxDisplay(false);
     } else {
       let nextImage = images[currentIndex + 1];
-      setImageToShow(nextImage);
+      setImageToShow(
+        currentIndex === -1 ? images[currentIndex + 2] : nextImage
+      );
     }
   };
 
