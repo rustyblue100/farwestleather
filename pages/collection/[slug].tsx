@@ -118,7 +118,8 @@ const ButtonNav = styled.button`
   background: none;
   color: ${({ theme }) => theme.colors.themeLight};
   font-size: 20px;
-
+  z-index: 999;
+  padding: 20px;
   :hover {
     background-color: ${({ theme }) => theme.colors.themePrimary};
   }
