@@ -136,7 +136,6 @@ const contact: NextPage<IProps> = ({ contactData }) => {
             height="2000"
             objectFit="cover"
             alt="contact"
-            style={{ filter: "grayscale(1)" }}
           ></Image>
         </GridItem>
         <GridItem>

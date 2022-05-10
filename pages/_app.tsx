@@ -37,7 +37,6 @@ const GlobalStyle = createGlobalStyle`
   justify-content: center;
   align-items: center;
 }
-
 `;
 
 const theme = {
@@ -53,9 +52,8 @@ const theme = {
     themeGray700: "#606060",
     themeGray900: "#242424",
     themeBody: "#404040",
+    primaryHover: "#343078",
   },
-
-  primaryHover: "#343078",
 
   media: {
     mobile: "576px",
