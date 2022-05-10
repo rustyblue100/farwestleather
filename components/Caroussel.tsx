@@ -2,7 +2,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 import styled from "styled-components";
-import { motion, useAnimation } from "framer-motion";
 
 // Import Swiper styles
 import "swiper/css";
@@ -35,11 +34,6 @@ interface IProps {
 }
 
 const Caroussel: NextPage<IProps> = ({ carousselData }) => {
-  const variants = {
-    visible: { opacity: 1 },
-    hidden: { opacity: 0 },
-  };
-
   return (
     <SliderWrapper>
       <Swiper
@@ -59,20 +53,13 @@ const Caroussel: NextPage<IProps> = ({ carousselData }) => {
         {carousselData[0].images?.map((slide: any, i: number) => {
           return (
             <SwiperSlide key={i}>
-              <motion.div
-                variants={variants}
-                initial="hidden"
-                animate="visible"
-                transition={{ duration: 0.6 }}
-              >
-                <Image
-                  src={urlFor(slide).url()}
-                  width="1120"
-                  height="840"
-                  objectFit="contain"
-                  alt="image1"
-                />
-              </motion.div>
+              <Image
+                src={urlFor(slide).url()}
+                width="1120"
+                height="840"
+                objectFit="contain"
+                alt="image1"
+              />
             </SwiperSlide>
           );
         })}

@@ -147,8 +147,15 @@ const Accueil: NextPage<IProps> = ({ sacs, aPropos, carousselData }) => {
         />
       </Head>
       <>
-        <Caroussel carousselData={carousselData} />
-
+        <motion.div
+          variants={variants}
+          initial="hidden"
+          animate="visible"
+          transition={{ duration: 1 }}
+          ref={ref}
+        >
+          <Caroussel carousselData={carousselData} />
+        </motion.div>
         <Slogan>
           <h3>FARWEST&#8226;LEATHER</h3>
           <motion.h4
