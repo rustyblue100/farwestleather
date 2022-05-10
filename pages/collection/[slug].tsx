@@ -52,6 +52,7 @@ const Caroussel = styled.div`
 `;
 
 const Featured = styled.div`
+  position: relative;
   margin-bottom: 20px;
   cursor: zoom-in;
   background-color: ${({ theme }) => theme.colors.themeDark};
@@ -101,10 +102,14 @@ const Divider = styled.div`
 const Credit = styled.div`
   font-size: 11px;
   position: absolute;
-  bottom: 162px;
-  right: -28px;
+  bottom: 62px;
+  right: -24px;
   transform: rotate(-90deg);
   color: ${({ theme }) => theme.colors.themeGray100};
+
+  @media (max-width: ${({ theme }) => theme.media.mobileL}) {
+    font-size: 10px;
+  }
 `;
 
 const ButtonNav = styled.button`
@@ -203,7 +208,7 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
   }, [controls, inView, controls2, inView2, controls3, inView3]);
 
   const isMobile: boolean =
-    typeof window !== "undefined" && window.innerWidth < 468; //Add the width you want to check for here (now 768px)
+    typeof window !== "undefined" && window.innerWidth < 768; //Add the width you want to check for here (now 768px)
 
   const variants: any = {
     visible: { opacity: 1 },
@@ -328,8 +333,10 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
               ) : (
                 ""
               )}
-              <Featured>{featuredImage()}</Featured>
-              <Credit>@{credit}</Credit>
+              <Featured>
+                {featuredImage()} <Credit>@{credit}</Credit>
+              </Featured>
+
               <Thumbnails>{imageCards}</Thumbnails>
             </Caroussel>
           </GridItem>
