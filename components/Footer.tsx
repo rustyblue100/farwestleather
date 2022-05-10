@@ -157,7 +157,7 @@ const Footer = () => {
           justifyContent: "flex-end",
           left: "unset",
           right: 0,
-          padding: 10,
+          padding: 20,
         }}
         acceptOnScroll={true}
         acceptOnScrollPercentage={80}
