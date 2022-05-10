@@ -8,6 +8,9 @@ import { useState } from "react";
 import styled from "styled-components";
 import Collection from "../../components/Collection";
 import { PortableText, sanityClient, urlFor } from "../../lib/sanity";
+import { useInView } from "react-intersection-observer";
+import { motion, useAnimation } from "framer-motion";
+import { useEffect } from "react";
 
 const Container = styled.div`
   margin: 80px 20px;
@@ -86,6 +89,10 @@ const PageTitle = styled.h1`
   font-weight: 400;
   line-height: 1.2;
   display: inline-block;
+
+  @media (max-width: ${({ theme }) => theme.media.mobileL}) {
+    margin-top: 60px;
+  }
 `;
 
 const Divider = styled.div`
@@ -174,6 +181,33 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
   const [lightboxDisplay, setLightBoxDisplay] = useState(false);
   const [endNav, setEndNav] = useState(false);
   const [imageToShow, setImageToShow] = useState("");
+
+  const [ref, inView] = useInView({ threshold: 0.2 });
+  const [ref2, inView2] = useInView({ threshold: 0.5 });
+  const [ref3, inView3] = useInView({ threshold: 0 });
+  const controls = useAnimation();
+  const controls2 = useAnimation();
+  const controls3 = useAnimation();
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+
+    if (inView2) {
+      controls2.start("visible");
+    }
+
+    if (inView3) {
+      controls3.start("visible");
+    }
+  }, [controls, inView, controls2, inView2, controls3, inView3]);
+
+  const variants = {
+    visible: { opacity: 1 },
+    hidden: { opacity: 0 },
+  };
+
   const hideLightBox = () => {
     setLightBoxDisplay(false);
   };
@@ -210,14 +244,24 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
 
   const featuredImage = () => {
     return (
-      <Image
-        width="800"
-        height="700"
-        objectFit="contain"
-        onClick={() => showImage(imageToShow)}
-        src={!imageToShow ? urlFor(images[0]).url() : urlFor(imageToShow).url()}
-        alt="img"
-      />
+      <motion.div
+        variants={variants}
+        initial="hidden"
+        animate={controls}
+        transition={{ duration: 1 }}
+        ref={ref}
+      >
+        <Image
+          width="800"
+          height="700"
+          objectFit="contain"
+          onClick={() => showImage(imageToShow)}
+          src={
+            !imageToShow ? urlFor(images[0]).url() : urlFor(imageToShow).url()
+          }
+          alt="img"
+        />
+      </motion.div>
     );
   };
 
@@ -287,20 +331,37 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
             </Caroussel>
           </GridItem>
           <GridItem>
-            <PageTitle>{nom}</PageTitle>
-            <Divider />
-            <Description>
-              <PortableText value={description} />
-            </Description>
-            Prix à partir de : {prix}$
+            <motion.div
+              variants={variants}
+              initial="hidden"
+              animate={controls}
+              transition={{ duration: 1 }}
+              ref={ref}
+            >
+              <PageTitle>{nom}</PageTitle>
+              <Divider />
+              <Description>
+                <PortableText value={description} />
+              </Description>
+              Prix à partir de : {prix}$
+            </motion.div>
           </GridItem>
         </Grid>
-        <Collection
-          sacs={data}
-          limit={3}
-          titre="Vous pourriez aussi aimer"
-          ramdom
-        />
+
+        <motion.div
+          variants={variants}
+          initial="hidden"
+          animate={controls3}
+          transition={{ duration: 1 }}
+          ref={ref3}
+        >
+          <Collection
+            sacs={data}
+            limit={3}
+            titre="Vous pourriez aussi aimer"
+            ramdom
+          />
+        </motion.div>
       </Container>
     </>
   );

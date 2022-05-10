@@ -1,7 +1,7 @@
 import styled from "styled-components";
-
+import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
-import { useForm } from "react-hook-form";
+import { useForm, ValidationError } from "@formspree/react";
 import { sanityClient, urlFor, PortableText } from "../lib/sanity";
 import type { NextPage } from "next";
 import Head from "next/head";
@@ -52,8 +52,8 @@ const Title = styled.div`
     text-align: center;
   }
 
-  @media (max-width: ${({ theme }) => theme.colors.mobileL}) {
-    margin: 80px auto 100px auto;
+  @media (max-width: ${({ theme }) => theme.media.mobileL}) {
+    margin: 40px auto 100px auto;
   }
 `;
 const GridItem = styled.div`
@@ -100,24 +100,18 @@ interface IProps {
   }[];
 }
 
-interface IFormInputs {
-  nom: string;
-  email: string;
-  tel: string;
-  message: string;
-}
-
 const contact: NextPage<IProps> = ({ contactData }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-  } = useForm<IFormInputs>();
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [state, handleSubmit] = useForm("mwkyaveg");
 
-  const onSubmit = (data: IFormInputs) => console.log(data);
+  if (state.succeeded) {
+    return <p>Merci! Je vous contacterai sous peu.</p>;
+  }
 
-  console.log(errors?.nom && errors);
+  const variants = {
+    visible: { opacity: 1 },
+    hidden: { opacity: 0 },
+  };
 
   return (
     <>
@@ -130,58 +124,74 @@ const contact: NextPage<IProps> = ({ contactData }) => {
       </Head>
       <Grid>
         <GridItem>
-          <Image
-            src={urlFor(contactData[0].image).url()}
-            width="1000"
-            height="2000"
-            objectFit="cover"
-            alt="contact"
-          ></Image>
+          <motion.div
+            variants={variants}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 1 }}
+          >
+            <Image
+              src={urlFor(contactData[0].image).url()}
+              width="1000"
+              height="2000"
+              objectFit="cover"
+              alt="contact"
+            ></Image>
+          </motion.div>
         </GridItem>
         <GridItem>
-          <Title>
-            <h4> Contact</h4>
-            <div className="divider"></div>
-          </Title>
-          <Description>
-            <PortableText value={contactData[0]?.description} />
-          </Description>
+          <motion.div
+            variants={variants}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 1 }}
+          >
+            <Title>
+              <h4> Contact</h4>
+              <div className="divider"></div>
+            </Title>
+            <Description>
+              <PortableText value={contactData[0]?.description} />
+            </Description>
 
-          <ContactForm>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div>
-                <label>Nom</label>
-                <input
-                  type="text"
-                  {...register("nom", { required: "Ce champ est requis" })}
+            <ContactForm>
+              <form onSubmit={handleSubmit}>
+                <label htmlFor="nom">Nom</label>
+                <input id="nom" type="text" name="no " />
+                <ValidationError
+                  prefix="Nom"
+                  field="nom"
+                  errors={state.errors}
                 />
-                {errors?.nom && <p>{errors.nom.message}</p>}
-              </div>
-              <div>
-                <label>Adresse courriel</label>
-                <input
-                  type="email"
-                  {...register("email", { required: "Ce champ est requis" })}
+
+                <label htmlFor="email">Email Address</label>
+                <input id="email" type="email" name="email" />
+                <ValidationError
+                  prefix="Email"
+                  field="email"
+                  errors={state.errors}
                 />
-                {errors?.email && <p>{errors.email.message}</p>}
-              </div>
-              <div>
-                <label>Téléphone</label>
-                <input type="tel" {...register("tel", {})} />
-                {errors?.tel && <p>{errors.tel.message}</p>}
-              </div>
-              <div>
-                <label>Message</label>
-                <textarea
+                <label htmlFor="tel">Téléphone</label>
+                <input id="tel" type="tel" name="no " />
+                <ValidationError
+                  prefix="Téléphone"
+                  field="telephone"
+                  errors={state.errors}
+                />
+                <label htmlFor="tel">Message</label>
+                <textarea id="message" name="message" />
+                <ValidationError
                   rows={5}
-                  {...register("message", { required: "Ce champ est requis" })}
+                  prefix="Message"
+                  field="message"
+                  errors={state.errors}
                 />
-                {errors?.message && <p>{errors.message.message}</p>}
-              </div>
-
-              <SubmitButton type="submit">Soumettre</SubmitButton>
-            </form>
-          </ContactForm>
+                <SubmitButton type="submit" disabled={state.submitting}>
+                  Soumettre
+                </SubmitButton>
+              </form>
+            </ContactForm>
+          </motion.div>
         </GridItem>
       </Grid>
     </>

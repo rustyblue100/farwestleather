@@ -4,6 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import Collection from "../components/Collection";
 import { sanityClient } from "../lib/sanity";
+import { motion, useAnimation } from "framer-motion";
 
 interface IProps {
   sacs: {
@@ -16,12 +17,22 @@ interface IProps {
 }
 
 const List = styled.div`
+  margin-top: 60px;
   padding: 0 20px;
 `;
 
 const collection: NextPage<IProps> = ({ sacs }) => {
+  const variants2 = {
+    visible: { opacity: 1 },
+    hidden: { opacity: 0 },
+  };
   return (
-    <>
+    <motion.div
+      variants={variants2}
+      initial="hidden"
+      animate="visible"
+      transition={{ duration: 1 }}
+    >
       <Head>
         <title>Collection - Farwestleather</title>
         <meta
@@ -33,11 +44,11 @@ const collection: NextPage<IProps> = ({ sacs }) => {
         <Collection
           sacs={sacs}
           limit={-1}
-          titre="Toute la collection"
+          titre="La collection"
           ramdom={false}
         />
       </List>
-    </>
+    </motion.div>
   );
 };
 

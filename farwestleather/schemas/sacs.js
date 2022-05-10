@@ -5,6 +5,12 @@ export default {
   type: "document",
   fields: [
     {
+      name: "order",
+      title: "Order",
+      type: "number",
+      hidden: true,
+    },
+    {
       name: "images",
       type: "array", // supports drag'n'drop of multiple files
       options: {

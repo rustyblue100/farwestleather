@@ -18,7 +18,7 @@ const StyledMenu = styled.div<{ open: boolean }>`
   padding: 20px;
   a {
     font-size: 16px;
-    line-height: 2;
+    line-height: 2.4;
     text-decoration: none;
     text-transform: capitalize;
     color: ${({ theme }) => theme.colors.themeLight};

@@ -1,9 +1,12 @@
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 import Caroussel from "../components/Caroussel";
 import Image from "next/image";
 import Collection from "../components/Collection";
 import Head from "next/head";
 import type { NextPage } from "next";
+import { useInView } from "react-intersection-observer";
+import { motion, useAnimation } from "framer-motion";
 
 import { sanityClient, PortableText } from "../lib/sanity";
 
@@ -16,6 +19,10 @@ const Slogan = styled.div`
     font-size: 15px;
     font-weight: 300;
     color: ${({ theme }) => theme.colors.themePrimary};
+
+    @media (max-width: ${({ theme }) => theme.media.mobileL}) {
+      margin-top: 10px;
+    }
   }
 
   h4 {
@@ -68,7 +75,7 @@ const Description = styled.div`
     height: 380px;
     background-color: ${({ theme }) => theme.colors.themePrimary};
 
-    @media (max-width: ${({ theme }) => theme.colors.mobileL}) {
+    @media (max-width: ${({ theme }) => theme.media.mobileL}) {
       width: 100%;
     }
   }
@@ -77,7 +84,7 @@ const Description = styled.div`
     padding: 70px;
     color: ${({ theme }) => theme.colors.themeLight};
 
-    @media (max-width: ${({ theme }) => theme.colors.laptop}) {
+    @media (max-width: ${({ theme }) => theme.media.laptop}) {
       padding: 40px;
     }
   }
@@ -105,6 +112,36 @@ interface IProps {
 }
 
 const Accueil: NextPage<IProps> = ({ sacs, aPropos, carousselData }) => {
+  const [ref, inView] = useInView({ threshold: 0.2 });
+  const [ref2, inView2] = useInView({ threshold: 0.5 });
+  const [ref3, inView3] = useInView({ threshold: 0 });
+  const controls = useAnimation();
+  const controls2 = useAnimation();
+  const controls3 = useAnimation();
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+
+    if (inView2) {
+      controls2.start("visible");
+    }
+
+    if (inView3) {
+      controls3.start("visible");
+    }
+  }, [controls, inView, controls2, inView2, controls3, inView3]);
+
+  const variants = {
+    visible: { opacity: 1 },
+    hidden: { opacity: 0 },
+  };
+
+  const variants2 = {
+    visible: { opacity: 1, y: 0 },
+    hidden: { opacity: 0, y: 20 },
+  };
   return (
     <>
       <Head>
@@ -115,37 +152,70 @@ const Accueil: NextPage<IProps> = ({ sacs, aPropos, carousselData }) => {
         />
       </Head>
       <>
-        <Caroussel carousselData={carousselData} />
+        <motion.div
+          variants={variants}
+          initial="hidden"
+          animate="visible"
+          transition={{ duration: 1 }}
+        >
+          <Caroussel carousselData={carousselData} />
+        </motion.div>
+
         <Slogan>
           <h3>FARWEST&#8226;LEATHER</h3>
-          <h4>Inspiration, beauté, solidité...</h4>
+          <motion.h4
+            variants={variants}
+            initial="hidden"
+            animate={controls}
+            transition={{ duration: 2 }}
+            ref={ref}
+          >
+            Inspiration, beauté, solidité...
+          </motion.h4>
           <div className="divider"></div>
         </Slogan>
 
-        <Description>
-          <div className="desc-img">
-            <Image
-              src="/besace.jpeg"
-              layout="fill"
-              objectFit="cover"
-              alt="sac"
-            />
-          </div>
-
-          <div className="desc-wrapper">
-            <div className="desc-text">
-              <h2>Inspiration</h2>
-              <PortableText value={aPropos[0]?.description} />
+        <motion.div
+          variants={variants}
+          initial="hidden"
+          animate={controls2}
+          transition={{ duration: 1 }}
+          ref={ref2}
+        >
+          <Description>
+            <div className="desc-img">
+              <Image
+                src="/besace.jpeg"
+                layout="fill"
+                objectFit="cover"
+                alt="sac"
+              />
             </div>
-          </div>
-        </Description>
+
+            <div className="desc-wrapper">
+              <div className="desc-text">
+                <h2>Inspiration</h2>
+                <PortableText value={aPropos[0]?.description} />
+              </div>
+            </div>
+          </Description>
+        </motion.div>
+
         <Nouveaute>
-          <Collection
-            sacs={sacs}
-            limit={6}
-            titre="Aperçu de la collection"
-            ramdom={false}
-          />
+          <motion.div
+            variants={variants}
+            initial="hidden"
+            animate={controls3}
+            transition={{ duration: 1 }}
+            ref={ref3}
+          >
+            <Collection
+              sacs={sacs}
+              limit={6}
+              titre="Les nouveautés"
+              ramdom={false}
+            />
+          </motion.div>
         </Nouveaute>
       </>
     </>
@@ -155,7 +225,7 @@ const Accueil: NextPage<IProps> = ({ sacs, aPropos, carousselData }) => {
 export default Accueil;
 
 export async function getStaticProps() {
-  const sacsQuery = `*[_type =="sacs"] | order(_createdAt desc)`;
+  const sacsQuery = `*[_type =="sacs"] | order(order asc)`;
   const aProposQuery = `*[_type =="a-propos"]`;
   const carousselQuery = `*[_type =="caroussel"]`;
 

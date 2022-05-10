@@ -38,7 +38,7 @@ const FooterWrapper = styled.div`
     font-size: 14px;
     margin-bottom: 20px;
 
-    @media (max-width: ${({ theme }) => theme.colors.tablet}) {
+    @media (max-width: ${({ theme }) => theme.media.tablet}) {
       margin-top: 40px;
       margin-bottom: 20px;
     }
@@ -60,7 +60,7 @@ const FooterWrapper = styled.div`
     padding-top: 40px;
     font-size: 12px;
 
-    @media (max-width: ${({ theme }) => theme.colors.tablet}) {
+    @media (max-width: ${({ theme }) => theme.media.tablet}) {
       display: none;
     }
   }
@@ -69,17 +69,17 @@ const FooterWrapper = styled.div`
     padding-top: 40px;
     font-size: 12px;
     display: none;
-    @media (max-width: ${({ theme }) => theme.colors.tablet}) {
+    @media (max-width: ${({ theme }) => theme.media.tablet}) {
       display: block;
     }
   }
   padding: 0 20px;
 
-  @media (max-width: ${({ theme }) => theme.colors.tablet}) {
+  @media (max-width: ${({ theme }) => theme.media.tablet}) {
     display: block;
   }
 
-  @media (max-width: ${({ theme }) => theme.colors.mobileL}) {
+  @media (max-width: ${({ theme }) => theme.media.mobileL}) {
     display: block;
   }
 `;
@@ -91,7 +91,7 @@ const Profile = styled.div`
 const Liens = styled.div`
   flex: 1;
 
-  @media (max-width: ${({ theme }) => theme.colors.tablet}) {
+  @media (max-width: ${({ theme }) => theme.media.tablet}) {
     margin-left: unset;
   }
 
@@ -135,12 +135,12 @@ const LogoWrap = styled.div`
     background: ${({ theme }) => theme.colors.themeDark};
   }
 
-  @media (max-width: ${({ theme }) => theme.colors.tablet}) {
+  @media (max-width: ${({ theme }) => theme.media.tablet}) {
     max-width: 84px;
     margin-left: -10px;
   }
 
-  transition: all ${({ theme }) => theme.colors.transitionDuration};
+  transition: all ${({ theme }) => theme.transitionDuration};
 `;
 
 const today = new Date();
