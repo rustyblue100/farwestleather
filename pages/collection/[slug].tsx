@@ -66,9 +66,7 @@ const Thumbnails = styled.div`
   cursor: pointer;
 `;
 
-const ImageWrapper = styled.div`
-  max-width: 100%;
-`;
+const ImageWrapper = styled.div``;
 
 const Description = styled.div`
   white-space: pre-line;
