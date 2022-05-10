@@ -158,6 +158,7 @@ const Footer = () => {
           left: "unset",
           right: 0,
           padding: 20,
+          marginBottom: "10px",
         }}
         acceptOnScroll={true}
         acceptOnScrollPercentage={80}
