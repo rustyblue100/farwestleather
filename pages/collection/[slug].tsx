@@ -202,7 +202,10 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
     }
   }, [controls, inView, controls2, inView2, controls3, inView3]);
 
-  const variants = {
+  const isMobile: boolean =
+    typeof window !== "undefined" && window.innerWidth < 468; //Add the width you want to check for here (now 768px)
+
+  const variants: any = {
     visible: { opacity: 1 },
     hidden: { opacity: 0 },
   };
@@ -245,7 +248,7 @@ const CollectionPage: NextPage<IProps> = ({ sacs, data }) => {
   const featuredImage = () => {
     return (
       <motion.div
-        variants={variants}
+        variants={!isMobile && variants}
         initial="hidden"
         animate={controls}
         transition={{ duration: 1 }}
